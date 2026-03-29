@@ -42,7 +42,11 @@
 > $ sudo systemctl status ssh   # komento näyttää SSH‑palvelimen tilan
 
 ## Karvinen 2026: Hello Ansible
-- 
+- Ansible on konfiguraationhallintatyökalu, jonka avulla käyttäjä voi
+  - kirjoittaa infraa koodina (IaC, *infrastructure as a code*)
+  - hallita useita työasemia yhden keskuskoneen kautta
+- Ansbile toimii SSH-yhteyden kautta, joten orjakoneella pitää olla SSH-demoni ja Python asennettuna
+- Monivaiheinen asennus- ja testauspatteristo on kuvattu Tero Karvisen artikkelissa "Hello Ansible" (ks. lähdeluettelo)
 
 # Linuxin asennus virtuaalikoneelle
 
