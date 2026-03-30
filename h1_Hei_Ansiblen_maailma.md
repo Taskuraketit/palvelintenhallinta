@@ -120,16 +120,162 @@ Poistuin SSH-yhteydestä komennolla
 
 # c) Hei Ansible. Tee hei maailma ansiblella ja kokeile sitä SSH:n yli.
 
+Salasanattoman kirjautumisen testi
+
+> $ ssh localhost
+>
+
+<img width="804" height="295" alt="image" src="https://github.com/user-attachments/assets/78027077-98d2-42b6-8b5c-f8a29c958e5c" />
+
+-> toimii
+
+Asennuspakettien päivitys
+
+> $ sudo apt-get update
+>
+
+<img width="808" height="456" alt="image" src="https://github.com/user-attachments/assets/d82500d8-416e-463a-aed5-b6141d35a18e" />
+
+Tarvittavien ohjelmien asennus
+
+> $ sudo apt-get install ansible micro bash-completion tree
+>
+
+<img width="806" height="455" alt="image" src="https://github.com/user-attachments/assets/0ef6c75f-dd8f-41dd-abf7-f3d0cf8f8723" />
+
+Ansible-kansion luonti
+
+> $ cd
+>
+> $ mkdir ansible/
+>
+> $ cd ansible
+>
+
+<img width="402" height="104" alt="image" src="https://github.com/user-attachments/assets/eab5d3bc-161f-4d75-a8f7-2bb114da3adf" />
+
+Hosts.ini-tiedoston luonti
+
+> $ micro hosts.ini
+>
+> (tiedoston muokkaus)
+>
+> $ cat hosts.ini
+>
+
+<img width="473" height="93" alt="image" src="https://github.com/user-attachments/assets/a0e838be-615d-474e-977d-58414c7b4b3f" />
+
+Ansible-testi
+
+> $ ansible all -a 'uptime' -i hosts.ini
+>
+
+<img width="1265" height="142" alt="image" src="https://github.com/user-attachments/assets/8c5abc22-4e52-40e7-8c16-bfd7916d79d5" />
+
+Hosts.ini-tiedoston muokkaus ja uusi testi
+
+> $ micro hosts.ini
+>
+> (tiedoston muokkaus)
+>
+> $ cat hosts.ini
+>
+> $ ansible all -a 'uptime' hosts.ini
+>
+
+<img width="692" height="198" alt="image" src="https://github.com/user-attachments/assets/21d9b056-86fa-472e-a994-f13a7d4a2ee3" />
+
+ansible.cfg-tiedoston luonti ja uusi testi
+
+> $ micro ansible.cfg
+>
+> (tiedoston muokkaus)
+>
+> $ cat ansible.cfg
+>
+> $ ansible all -a "uptime"
+>
+
+<img width="649" height="170" alt="image" src="https://github.com/user-attachments/assets/4f930250-c0ba-4c3a-85a7-9f4699e20481" />
+
+site.yml-tiedoston luonti ja testaus
+
+> $ micro site.yml
+>
+> (tiedoston muokkaus)
+> 
+> $ cat site.yml
+>
+> $ ansible-playbook site.yml
+
+<img width="1265" height="306" alt="image" src="https://github.com/user-attachments/assets/5b98842c-bc95-4c58-b38d-7c2cec9eac59" />
+
+Roles/hello/task-kansion ja main.yml-tiedoston luonti
+
+> $ mkdir -p roles/hello/tasks/
+>
+> $ micro roles/hello/tasks/main.yml
+>
+> $ cat roles/hello/tasks/main.yml
+>
+
+Tuli virheilmoitus, koska dest ja content ovat väärässä kohdassa
+
+> $ ansible-playbook site.yml
+>
+
+<img width="616" height="150" alt="image" src="https://github.com/user-attachments/assets/b008568a-8c4d-4775-8252-5abc6ba35c49" />
+
+Tarvittavat muokkaukset ja testi
+
+> $ micro roles/hello/tasks/main.yml
+> 
+> (tiedoston muokkaus)
+> 
+> $ cat roles/hello/tasks/main.yml
+>
+
+<img width="1269" height="367" alt="image" src="https://github.com/user-attachments/assets/96aa46e7-c157-4e29-a1af-d1d2103cb741" />
+
+Todennus, että ansible toimii
+
+> $ ssh localhost 'cat /tmp/hello-ansible'
+>
+
+<img width="717" height="61" alt="image" src="https://github.com/user-attachments/assets/cf76c679-ad9c-416a-adaf-bd467ce19be4" />
+
+Vielä tarvittavat muokkaukset, jotta *ansible-playbook*-komennosta tulee informatiivisempi
+
+> $ micro ansible.cfg
+>
+> (tiedoston muokkaus)
+> 
+> $ cat ansible-playbook site.yml
+>
+
+<img width="1265" height="395" alt="image" src="https://github.com/user-attachments/assets/80e7c29f-77a7-4f2c-8c0e-623c6dd516ed" />
+
+Lopputulema
+
+> $ tree -F
+>
+> $ head -1000 ansible.cfg hosts.ini site.yml roles/hello/tasks/main.yml
+>
+
+<img width="1011" height="639" alt="image" src="https://github.com/user-attachments/assets/38a7de33-1387-474a-a999-3820d2361543" />
+
+**Jes, kaikki toimii kuten pitääkin :) Sanoisin että tämä homma meni jopa hieman yllättävän sujuvasti. Ongelmanratkaisukin kävi näppärästi omatoimisesti.**
+
 # d) Vapaaehtoinen bonus, vaikea: kokeile Ansiblella jokin näista asetuksista: paketin asennus, asetustiedosto /etc/ alle, käynnistä jokin demoni, tee uusi käyttäjä. Tarvitset todennäköisesti sudoa, become: true.
 
 # Lähteet
 **Heinonen, J.** s.a. How to Install Linux to Virtualbox? Luettavissa: https://github.com/johannaheinonen/johanna-test-repo/blob/main/module_1.md. Luettu: 29.3.2026.
 
-**Karvinen, T.** s.a. Hello Ansible. Luettavissa: https://terokarvinen.com/hello-ansible/. Luettu: 29.3.2026
+**Karvinen, T.** 2026. Hello Ansible. Luettavissa: https://terokarvinen.com/hello-ansible/. Luettu: 29.3.2026
 
 **Karvinen, T.** s.a. Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 29.3.2026.
 
-**Karvinen, T.** s.a. SSH public key - Login without password. Luettavissa: https://terokarvinen.com/ssh-public-key-login-without-password/. Luettu: 29.3.2026.
+**Karvinen, T.** 2026. SSH public key - Login without password. Luettavissa: https://terokarvinen.com/ssh-public-key-login-without-password/. Luettu: 29.3.2026.
 
 **Linux.fi**. s.a. SSH. Luettavissa: https://www.linux.fi/wiki/SSH. Luettu: 29.3.2026.
 
