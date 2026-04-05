@@ -362,6 +362,187 @@ sain virheilmoituksen:
 
 <img width="1268" height="229" alt="image" src="https://github.com/user-attachments/assets/830f2421-c902-4434-8377-fd539a1b9845" />
 
+Tarkistin että löytyy inventory (tässä tapauksessa hosts.ini) ja sen sisällön.
+
+```bash
+ls
+micro hosts.ini
+```
+
+Kokeilin ajaa komennon pienellä muutoksella:
+
+```bash
+ansible-playbook site.yml -i hosts.ini --ask-become-password
+```
+...mutta sain edelleen saman virheilmoituksen.
+
+Copilotin kehotuksesta muutin komennon muotoon
+
+```bash
+ansible-playbook site.yml -i hosts.ini -K
+```
+minkä jälkeen ajo onnistui.
+
+<img width="1264" height="521" alt="image" src="https://github.com/user-attachments/assets/ba98248d-f781-44b6-ba80-a62ea202a483" />
+
+Testiksi ajoin seuraavaksi komennon
+
+```bash
+ansible-playbook site.yml
+```
+
+ja sain virheilmoituksen:
+
+<img width="1263" height="241" alt="image" src="https://github.com/user-attachments/assets/dcf32157-6c79-459c-a009-d46cfe603899" />
+
+Copilotin ehdotuksesta muutin main.yml-tiedoston viimeisen rivin
+
+mode: "0644"
+
+muotoon
+
+mode: "0440"
+
+ja tallensin ja suljin tiedoston.
+
+Tämän jälkeen ajoin kerran komennon
+
+```bash
+ansible-playbook site.yml -i hosts.ini -K
+```
+
+ja kaikki näytti tässä vaiheessa oikealta.
+
+<img width="1263" height="500" alt="image" src="https://github.com/user-attachments/assets/2458bed6-35e6-4165-9d69-cbef70e14b0c" />
+
+Sitten ajoin testiksi komennon
+
+```bash
+ansible-playbook site.yml
+```
+ja sain edelleen saman virheilmoituksen:
+
+<img width="1267" height="201" alt="image" src="https://github.com/user-attachments/assets/b41a496b-db5a-4ba1-91bf-85a64add42d6" />
+
+Copilotin analyysi tilanteesta:
+
+***Miksi tämä tapahtuu?***
+***Keskeinen fakta (tämä ratkaisee koko asian)***
+
+***Salasanaton sudo koskee vain niitä käyttäjiä, jotka kuuluvat sudoless‑ryhmään.***
+
+*Sinun tapauksessasi:*
+
+- GNU/Linux‑istunnossa olet kirjautunut käyttäjänä samuli
+- sudoless‑ryhmään kuuluu samans
+- Ansible ajetaan edelleen käyttäjänä samuli
+- samuli ei kuulu sudoless‑ryhmään
+
+*➡️ sudo kysyy salasanaa → Ansible ei voi vastata → virhe.*
+
+Tässä kohtaa pysähdyin tarkemmin miettimään tehtävänantoa ja keksin, että ilmeisesti tässä ei ole varsinainen virhe kyseessä vaan teen väärää asiaa - tehtävänä oli luoda *uusi käyttäjä* ansiblella. 
+
+Koska *samans*-käyttäjä on jo olemassa, päätin vaihtaa /roles/adduser/tasks/main.yml-tiedostoon uuden käyttäjän **mansikka** ja muokata mode-kohtaan "0644" kuten Teron artikkelissa mainittu.
+
+<img width="1151" height="328" alt="image" src="https://github.com/user-attachments/assets/52ac6fc8-6196-4e50-a044-2c2baab1424f" />
+
+Tässä kohtaa päätin kokeilla Copilotin ehdotusta hosts.ini-tiedoston muokkauksesta. Nimesin alkuperäisen hosts.ini-tiedoston hosts.ini.backupiksi ja loin samaan hakemistoon uuden hosts.ini-tiedoston, jonka sisältö seuraava:
+
+<img width="607" height="125" alt="image" src="https://github.com/user-attachments/assets/fc623699-a472-48db-9141-768bbac03ade" />
+
+**Uusi yritys**
+
+hosts.ini-tiedoston muokkaus
+
+<img width="470" height="125" alt="image" src="https://github.com/user-attachments/assets/261c463a-e16c-4d48-98a4-a850dc01f0ce" />
+
+testaus että ssh-yhteys onnistuu ilman salasanaa
+
+```bash
+ssh samans@localhost
+```
+
+<img width="1020" height="190" alt="image" src="https://github.com/user-attachments/assets/cde7d7cd-228d-4869-ae21-9578bab83ae8" />
+
+Suoritin komennon
+
+```bash
+ansible all -i hosts.ini -m ping
+```
+
+ja sain virheilmoituksen
+
+<img width="731" height="193" alt="image" src="https://github.com/user-attachments/assets/471a197b-f06a-4f75-8a7d-ecf243bc11c2" />
+
+hosts.ini-tiedoston muokkaus
+
+<img width="485" height="125" alt="image" src="https://github.com/user-attachments/assets/55893d7b-e140-4a75-b098-021f041402a1" />
+
+Ajoin uudestaan komennon
+
+```bash
+ansible all -i hosts.ini -m ping
+```
+
+ja nyt sain erilaisen ilmoituksen kuin aiemmin
+
+<img width="666" height="98" alt="image" src="https://github.com/user-attachments/assets/8d52ad42-c550-4270-9f80-753729c6323c" />
+
+Ajoin komennon
+
+```bash
+ansible all -i hosts.ini -m command -a "whoami" --become
+```
+
+ja sain tulokseksi:
+
+<img width="905" height="58" alt="image" src="https://github.com/user-attachments/assets/e7ac7880-6b77-4c8d-9ca7-edc9418b37a4" />
+
+Ajoin komennon
+
+```bash
+ansible-playbook -i hosts.ini site.yml
+```
+
+ja sain seuraavat tulokset:
+
+<img width="1268" height="523" alt="image" src="https://github.com/user-attachments/assets/92516f23-d9d2-46b2-87c1-19a3aebf1b1f" />
+
+Virheilmoitus kertoo, että main.yml-tiedostossa on virhe. Korjataan se.
+
+Lisäsin /-merkin bin-sanan eteen (roles/adduser/tasks/main.yml):
+
+<img width="573" height="361" alt="image" src="https://github.com/user-attachments/assets/901d3d42-0d46-445f-926a-02317c4e9fea" />
+
+Tallensin ja suljin tiedoston.
+
+Ajoin playbookin uudelleen:
+
+```bash
+ansible-playbook -i hosts.ini site.yml
+```
+Tulos:
+
+<img width="1267" height="485" alt="image" src="https://github.com/user-attachments/assets/799e9ced-3314-4b25-961a-c1412ea167a8" />
+
+Komennolla 
+
+```bash
+ssh mansikka@localhost
+```
+
+näkyy, että käyttäjä luotiin oikein :) Jee!
+
+<img width="1027" height="237" alt="image" src="https://github.com/user-attachments/assets/f628aaa9-891b-4e91-8206-46eb07a0019f" />
+
+Tarkistin vielä, että mansikka-käyttäjällä on kotihakemisto
+
+```bash
+ls -ld /home/mansikka
+```
+
+<img width="643" height="56" alt="image" src="https://github.com/user-attachments/assets/02595e88-aeca-4cf6-a49f-af2ac7772434" />
+
 
 ### c) Package. Asenna kaksi pakettia ansiblella.
 
