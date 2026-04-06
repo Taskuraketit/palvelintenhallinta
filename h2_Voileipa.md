@@ -598,6 +598,45 @@ Molemmat haut tuottivat tuloksia eli asennukset ovat menneet onnistuneesti läpi
 
 ### d) File. Kirjoita orjalle useamman rivin mittainen tiedosto Ansiblella. Määrittele sen omistaja, omistava ryhmä ja oikeudet. Käytä oikeuksille oktaalinumeroa, esim. "0600". Kerro, mitä oikeudet ovat symbolisessa muodossa, esim. "-rwxr--r--". Selitä, mitä kukin käyttäjä saa tehdä tuolle tiedostolle.
 
+Aloitin luomalla uuden roolin tehtävää varten.
+
+```bash
+mkdir -pt roles/filetask/tasks   # -p -> luodaan koko hakemistopolku kerralla
+```
+
+Seuraavaksi loin hakemistoon main.yml-tiedoston, jonka sisällöksi laitoin seuraavasti:
+
+<img width="496" height="212" alt="image" src="https://github.com/user-attachments/assets/84dd18a3-34ed-4e6e-ba8d-e9bfdc79c53d" />
+
+Seuraavaksi lisäsin site.yml-tiedostoon uuden roolin "filetask"
+
+<img width="209" height="155" alt="image" src="https://github.com/user-attachments/assets/00ef5f47-b829-4856-909f-01d5f265a1cc" />
+
+Tallensin ja suljin tiedoston.
+
+Tämän jälkeen kokeilin ajaa komennon
+
+```bash
+ansible-playbook site.yml
+```
+
+...ja ilmoituksen perusteella jotain näytti tapahtuvan :D
+
+<img width="1179" height="579" alt="image" src="https://github.com/user-attachments/assets/2e237261-b03e-445a-adb5-4be5dbff372d" />
+
+Testiksi ajoin tämän jälkeen komennon
+
+```bash
+ls -l /tmp/ansible_test.txt
+```
+
+ja sain tulokseksi:
+
+<img width="682" height="39" alt="image" src="https://github.com/user-attachments/assets/d2b8adfd-2b0c-42b3-b7ca-fcbfa7af5c11" />
+
+
+
+
 ### e) Jotain muuta. Näytä esimerkki ansiblen käskystä, jota ei ole vielä käsitelty kurssilla tai kotitehtävissä. Voit ottaa jonkun muun modulin kuin apt, file, copy, user tai authorized_key. Tai voit käyttää ominaisuutta, jota ei vielä ole demonstroitu. Jos tiivistystehtävässä x on mainittu ominaisuuksia, joita ei tunneilla tai läksyissä kokeiltu, nekin kelpaavat.
 
 ### Lähteet
