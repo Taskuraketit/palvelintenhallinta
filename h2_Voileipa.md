@@ -546,7 +546,7 @@ ls -ld /home/mansikka
 
 ### c) Package. Asenna kaksi pakettia ansiblella.
 
-Aluksi selvitin miten asennus tapahtuu käyttäen apuna Copilotia sekä paria nettilähdettä (Kastning, J. 16.8.2021; Kenlon, S. 8.9.2020). Näiden avulla sain selvitettyä perusidean ja -rakenteen asennustoimenpiteille.
+Aluksi selvitin miten asennus tapahtuu käyttäen apuna Copilotia sekä paria nettilähdettä ([Kastning, J. 16.8.2021](https://www.redhat.com/en/blog/software-packages-ansible); [Kenlon, S. 8.9.2020](https://opensource.com/article/20/9/install-packages-ansible)). Näiden avulla sain selvitettyä perusidean ja -rakenteen asennustoimenpiteille.
 
 Copilotin ehdottamista paketeista minulla oli jo valmiiksi asennettuina ainakin htop, tree ja curl. Sen sijaan minulla ei ollut asennettuna gitiä ja net-toolsia, joten päätin valita ne.
 Tämän voi testata helposti esimerkiksi tarkistamalla ohjelman versionumeron:
@@ -634,13 +634,100 @@ ja sain tulokseksi:
 
 <img width="682" height="39" alt="image" src="https://github.com/user-attachments/assets/d2b8adfd-2b0c-42b3-b7ca-fcbfa7af5c11" />
 
-
+Toimii :)
 
 
 ### e) Jotain muuta. Näytä esimerkki ansiblen käskystä, jota ei ole vielä käsitelty kurssilla tai kotitehtävissä. Voit ottaa jonkun muun modulin kuin apt, file, copy, user tai authorized_key. Tai voit käyttää ominaisuutta, jota ei vielä ole demonstroitu. Jos tiivistystehtävässä x on mainittu ominaisuuksia, joita ei tunneilla tai läksyissä kokeiltu, nekin kelpaavat.
 
+
+Alointin luomalla uuden roolin
+
+```bash
+mkdir -p roles/lineinfile_test/tasks
+```
+
+Seuraavaksi loin hakemistoon main.yml-tiedoston, jonka sisällöksi laitoin seuraavaa:
+
+<img width="567" height="105" alt="image" src="https://github.com/user-attachments/assets/a2824b8c-da1f-4c3a-9fcd-e88e9fed1a17" />
+
+Tässä Ansible tarkistaa onko rivi jo olemassa ja 
+- jos **riviä ei ole**, se lisätään
+- jos **on**, tiedostoa ei muuteta
+- jos **tiedostoa ei ole** se luodaan.
+
+Tallensin ja suljin tiedoston.
+
+Tämän jälkeen lisäsin site.yml-tiedostoon uuden roolin:
+
+<img width="271" height="178" alt="image" src="https://github.com/user-attachments/assets/4e6035ce-e291-4f46-a9dc-e416e2a5d9b7" />
+
+Tallensin ja suljin tiedoston.
+
+Tämän jälkeen ajoin komennon
+
+```bash
+ansible-playbook site.yml
+```
+
+Sain virheilmoituksen, joka kertoo virheen olevan main.yml-tiedostossa.
+
+<img width="1266" height="138" alt="image" src="https://github.com/user-attachments/assets/0b125bbd-469b-4a15-9d86-69de96cd4da9" />
+
+Copilotin mukaan tämä johtuu siitä, että Ansible ei löydä lineinfile-moduulia nimellä lineinfile vaan on käytettävä nimen lisäksi collectionia: *ansible.builtin.lineinfile*
+
+Muokkasin main.yml-tiedoston seuraavanlaiseksi:
+
+<img width="583" height="117" alt="image" src="https://github.com/user-attachments/assets/42e80c2f-fb27-45f8-afca-b25fd4152e6a" />
+
+Tallensin ja suljin tiedoston ja ajoin komennon
+
+```bash
+ansible-playbook site.yml
+```
+
+Sain virheilmoituksen
+
+<img width="1259" height="130" alt="image" src="https://github.com/user-attachments/assets/872a4eb1-602c-4778-bdd0-0c81b61a8b41" />
+
+Tässä kohtaa päätin vaihtaa toiseen moduuliin (debug).
+
+Nimesin uudelleen lineinfile_test-kansion -> debug
+
+```bash
+mv lineinfile/ deubg/
+```
+
+ja muokkasin alkuperäisen main.yml-tiedoston sisällön seuraavanlaiseksi:
+
+<img width="422" height="82" alt="image" src="https://github.com/user-attachments/assets/9b770df0-ba9a-46e1-a792-3086993417aa" />
+
+Tämän jälkeen muokkasin site.yml-tiedoston sisällön seuraavanlaiseksi (lineinfile_test korvattu -> debug):
+
+<img width="223" height="175" alt="image" src="https://github.com/user-attachments/assets/5ebc8fea-9221-446a-bd74-73200d3bcb5e" />
+
+Tallensin ja suljin tiedoston.
+
+Seuraavaksi ajon taas komennon
+
+```bash
+ansible-playbook site.yml
+```
+
+Sain ilmoituksen moduulin toimimisesta :)
+
+<img width="1259" height="679" alt="image" src="https://github.com/user-attachments/assets/8aa19794-e93d-4870-9698-ed79a5095b81" />
+
+
 ### Lähteet
+
+Karvinen, T. 2026. Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 6.4.2026.
+
+Karvinen, T. 2026. Passwordless Sudo with Ansible. Luettavissa: https://terokarvinen.com/passwordless-sudo-with-ansible/. Luettu: 6.4.2026.
+
+Karvinen, T. 2026. Sudo without password. Luettavissa: https://terokarvinen.com/passwordless-sudo/. Luettu: 6.4.2026.
 
 Kenlon, S. 8.9.2020. How to install software with Ansible. Luettavissa: https://opensource.com/article/20/9/install-packages-ansible. Luettu: 6.4.2026.
 
 Kastning, J. 16.8.2021. How to install software packages with an Ansible playbook. Red Hat Blog. Luettavissa: https://www.redhat.com/en/blog/software-packages-ansible. Luettu: 6.4.2026.
+
+Munroe, R. 2006. xkcd #149: Sandwich. Luettavissa: https://xkcd.com/149/. Luettu: 6.4.2026.
