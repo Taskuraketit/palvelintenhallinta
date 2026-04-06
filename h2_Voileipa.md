@@ -349,7 +349,7 @@ Seuraavaksi suoritin ajon
 ansible-playbook site.yml --ask-become-password
 ```
 
-minkä jälkeen komentoriville tuli pitkä selostus sille mitä tapahtui.
+minkä jälkeen komentoriville tuli pitkä selostus sille mitä tapahtui - tai tällaiseksi sitä aluksi luulin, kunnes myöhemmin selvisi, että tämä on eräänlaisen virheilmoitus.
 
 <img width="1263" height="674" alt="image" src="https://github.com/user-attachments/assets/96786fc1-1dec-416c-89ae-e6a445c5daff" />
 
