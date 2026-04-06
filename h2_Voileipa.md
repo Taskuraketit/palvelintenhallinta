@@ -546,10 +546,62 @@ ls -ld /home/mansikka
 
 ### c) Package. Asenna kaksi pakettia ansiblella.
 
+Aluksi selvitin miten asennus tapahtuu käyttäen apuna Copilotia sekä paria nettilähdettä (Kastning, J. 16.8.2021; Kenlon, S. 8.9.2020). Näiden avulla sain selvitettyä perusidean ja -rakenteen asennustoimenpiteille.
+
+Copilotin ehdottamista paketeista minulla oli jo valmiiksi asennettuina ainakin htop, tree ja curl. Sen sijaan minulla ei ollut asennettuna gitiä ja net-toolsia, joten päätin valita ne.
+Tämän voi testata helposti esimerkiksi tarkistamalla ohjelman versionumeron:
+
+```bash
+htop --version
+tree --version
+curl --version
+git --version
+net-tools --version
+```
+<img width="1261" height="327" alt="image" src="https://github.com/user-attachments/assets/95a56a16-472b-4026-a392-e153edfcf760" />
+
+Aloitin luomalla kansion /roles/packages/tasks/ sekä sen sisälle uuden tiedoston main.yml, jonka sisällöksi kirjoitin näin:
+
+<img width="674" height="150" alt="image" src="https://github.com/user-attachments/assets/b40c4b36-9c34-4688-be90-e71769a9583a" />
+
+- Asennetaan paketit git ja net-tools
+- käytetään apt-moduulia
+- ei tee mitään jos paketit on jo asennettu
+
+  Seuraavaksi lisäsin site.yml-tiedostoon roles-kohdan alle "packages" ja tallensin sekä suljin tiedoston.
+
+  <img width="223" height="133" alt="image" src="https://github.com/user-attachments/assets/4af12abc-1107-46da-ac1a-0bd53f8d9c26" />
+
+Tässä kohtaa tarkistin vielä tree-komennolla hakemistorakenteen:
+
+<img width="374" height="340" alt="image" src="https://github.com/user-attachments/assets/21caa3ab-b4cd-416c-9353-8e88b51b0c62" />
+
+Seuraavaksi ajoin ansible-playbookin komennolla
+
+```bash
+ansible-playbook site.yml
+```
+
+Sain vahvistuksen asennuksen läpimenosta:
+
+<img width="1259" height="518" alt="image" src="https://github.com/user-attachments/assets/dc59b345-68bc-4ba5-b3b4-27af30d7d788" />
+
+Tarkistin asennuksen läpimenon vielä komennoilla
+
+```bash
+git --version
+sudo ifconfig   # vaatii sudon toimiakseen
+```
+
+Molemmat haut tuottivat tuloksia eli asennukset ovat menneet onnistuneesti läpi.
+
+
 ### d) File. Kirjoita orjalle useamman rivin mittainen tiedosto Ansiblella. Määrittele sen omistaja, omistava ryhmä ja oikeudet. Käytä oikeuksille oktaalinumeroa, esim. "0600". Kerro, mitä oikeudet ovat symbolisessa muodossa, esim. "-rwxr--r--". Selitä, mitä kukin käyttäjä saa tehdä tuolle tiedostolle.
 
 ### e) Jotain muuta. Näytä esimerkki ansiblen käskystä, jota ei ole vielä käsitelty kurssilla tai kotitehtävissä. Voit ottaa jonkun muun modulin kuin apt, file, copy, user tai authorized_key. Tai voit käyttää ominaisuutta, jota ei vielä ole demonstroitu. Jos tiivistystehtävässä x on mainittu ominaisuuksia, joita ei tunneilla tai läksyissä kokeiltu, nekin kelpaavat.
 
 ### Lähteet
 
+Kenlon, S. 8.9.2020. How to install software with Ansible. Luettavissa: https://opensource.com/article/20/9/install-packages-ansible. Luettu: 6.4.2026.
 
+Kastning, J. 16.8.2021. How to install software packages with an Ansible playbook. Red Hat Blog. Luettavissa: https://www.redhat.com/en/blog/software-packages-ansible. Luettu: 6.4.2026.
