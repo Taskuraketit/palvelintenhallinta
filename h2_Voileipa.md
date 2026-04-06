@@ -426,19 +426,19 @@ ja sain edelleen saman virheilmoituksen:
 
 Copilotin analyysi tilanteesta:
 
-***Miksi tämä tapahtuu?***
-***Keskeinen fakta (tämä ratkaisee koko asian)***
-
-***Salasanaton sudo koskee vain niitä käyttäjiä, jotka kuuluvat sudoless‑ryhmään.***
-
-*Sinun tapauksessasi:*
-
-- GNU/Linux‑istunnossa olet kirjautunut käyttäjänä samuli
-- sudoless‑ryhmään kuuluu samans
-- Ansible ajetaan edelleen käyttäjänä samuli
-- samuli ei kuulu sudoless‑ryhmään
-
-*➡️ sudo kysyy salasanaa → Ansible ei voi vastata → virhe.*
+> ***Miksi tämä tapahtuu?***
+> ***Keskeinen fakta (tämä ratkaisee koko asian)***
+> 
+> ***Salasanaton sudo koskee vain niitä käyttäjiä, jotka kuuluvat sudoless‑ryhmään.***
+> 
+> *Sinun tapauksessasi:*
+> 
+> - GNU/Linux‑istunnossa olet kirjautunut käyttäjänä samuli
+> - sudoless‑ryhmään kuuluu samans
+> - Ansible ajetaan edelleen käyttäjänä samuli
+> - samuli ei kuulu sudoless‑ryhmään
+> 
+> *➡️ sudo kysyy salasanaa → Ansible ei voi vastata → virhe.*
 
 Tässä kohtaa pysähdyin tarkemmin miettimään tehtävänantoa ja keksin, että ilmeisesti tässä ei ole varsinainen virhe kyseessä vaan teen väärää asiaa - tehtävänä oli luoda *uusi käyttäjä* ansiblella. 
 
