@@ -336,6 +336,92 @@ Avasin selaimen ja päivitin sivun, jolloin tekemäni muutos näkyi heti.
 
 ### c) Automoottorix. Automatisoi Nginx asennus Ansiblella. Ylläpitäjän osuus Ansiblella riittää, itse HTML-weppisivut voi tehdä käsin.
 
+🚀 **Lähtötilanne**
+
+Ennen tätä tehtävää olen
+- asentanut ansiblen
+- luonut ansiblelle käyttäjän samans, joka käyttää ansiblea **ilman sudoa**
+- luonut aiempia tehtäviä varten eri rooleja
+
+Lähdetään liikkeelle uuden roolin (nginx) luomisesta.
+
+````bash
+cd bansibles
+ansible-galaxy init roles/nginx
+ls -l F roles/nginx/
+````
+<img width="651" height="280" alt="image" src="https://github.com/user-attachments/assets/ef622087-161b-437c-9538-3e32554c3b37" />
+
+nginx-asennuksen lisääminen rooliin
+
+````bash
+micro roles/nginx/tasks/main.yml
+````
+
+Tiedoston sisältö alla. Tallensin ja suljin tiedoston.
+
+<img width="504" height="478" alt="image" src="https://github.com/user-attachments/assets/49a08d11-9a4f-407f-948d-13d3bb84480e" />
+
+nginx-roolin lisäys site.yml-tiedostoon. Tallensin ja suljin tiedoston.
+
+````bash
+cd bansibles
+micro site.yml
+````
+
+<img width="292" height="211" alt="image" src="https://github.com/user-attachments/assets/9fdc4172-6565-4f84-bbf0-fca8b063eb22" />
+
+Muokkauksen tarkistus:
+
+````bash
+cat site.yml
+````
+
+<img width="362" height="189" alt="image" src="https://github.com/user-attachments/assets/b182e047-c828-4877-89a0-ec1d57a10474" />
+
+
+index.html-tiedoston muokkaus -> muutin ensin alkuperäisen idnex.html:n backupiksi ja aloin muokkaamaan uutta index.html:ää tehtävään sopivaksi.
+
+````bash
+cp ~/nginx-site/index.html ~/nginx-site/index.html.backup
+ls -F ~/nginx-site/
+micro ~/nginx-site/index.html
+````
+
+<img width="743" height="142" alt="image" src="https://github.com/user-attachments/assets/21a7f844-fe3b-4cae-b7d9-c434388c92a0" />
+
+
+<img width="420" height="234" alt="image" src="https://github.com/user-attachments/assets/394bb318-f3be-47e3-be3e-da0419134a97" />
+
+
+**Totuuden hetki - ajetaan ansible-playbook**
+
+Ajoin bansibles-kansiossa komennon
+
+````bash
+ansible-playbook site.yml
+````
+
+Tämän jälkeen tapahtui kaikki mitä olin site.yml:iin aiemmin määritellyt sekä uuden sivun luonti.
+
+<img width="1267" height="655" alt="image" src="https://github.com/user-attachments/assets/b5004890-ef0a-4174-8286-a25beb16ce2d" />
+
+<img width="1255" height="184" alt="image" src="https://github.com/user-attachments/assets/83090ce4-34b1-4f35-9410-70d5011d8cfe" />
+
+Testi: avasin selaimen ja päivitin sivun, jolloin näkymä muuttui seuraavanlaiseksi:
+
+<img width="441" height="235" alt="image" src="https://github.com/user-attachments/assets/6f91ea8b-7722-439a-8c66-789693832cbb" />
+
+Todennetaan lopuksi, että nettisivua voi muokata ilman sudoa -> tämä nähdään tiedoston oikeusmäärityksistä.
+
+````bash
+cd ~/nginx-site/
+ls -l -F
+````
+
+<img width="496" height="104" alt="image" src="https://github.com/user-attachments/assets/4ae14f36-41fd-4a4a-b49b-41774f83168f" />
+
+
 
 
 ### d) Vapaaehtoinen bonus: Osiris-T. Osiris-T asentaa Wazuhin ja tarvittavat virtuaalikoneet. Voit lähettää vihamielistä verkkoliikennettä (tcpreplay), siepata sen (suricata) ja saat tulokset suoraan dashboardille (wazuh). Enemmän alpha kuin se kreikkalainen kirjain. Mutta Oskari, Nico ja Arttu ilahtuvat, jos kokeilet. Häkämies, Saario, Mukkula 2026: Osiris-T. Häkämies etal 2026: How to Install.
