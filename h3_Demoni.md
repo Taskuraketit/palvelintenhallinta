@@ -1,5 +1,5 @@
 ### x) Lue ja tiivistä. (Tässä x-alakohdassa ei tarvitse tehdä testejä tietokoneella, vain lukeminen tai kuunteleminen ja tiivistelmä riittää. Tiivistämiseen riittää muutama ranskalainen viiva. Ei siis vaadita pitkää eikä essee-muotoista tiivistelmää. Lisää kuhunkin jokin oma kysymys tai huomio.)
-- Karvinen 2026: Apache installed with Ansible - quick notes
+#### **Karvinen 2026: Apache installed with Ansible - quick notes**
 
 Ansiblen avulla voidaan asentaa Apache 2 tai muu webbipalvelin automaattisesti. Webbisivun saa näkymään localhostilla ja sitä voi muokata normaalikäyttäjän oikeuksin. 
 
@@ -8,17 +8,58 @@ Vaiheet lyhyesti ovat
 2) **tarvittavien tiedostojen muokkaus** (sudoedit /etc/apache2/...)
 3) **servicen käynnistys eli kansankielellä demonin potkaisu** (sudo systemctl restart apache2)
 
-Artikkelissa löytyy myös esimerkkisisällöt hakemistorakenteeseen roles/apache2/ sekä tiedostoihin tasks/main.yml, handlers/main.yml sekä files/example.com.conf.
+Artikkelissa löytyy myös esimerkkisisällöt hakemistorakenteeseen **roles/apache2/** sekä tiedostoihin **tasks/main.yml**, **handlers/main.yml* sekä **files/example.com.conf**.
 
-- Ansible Community Documentation: Handlers: running operations on change
+**Omia mietteitä:**
+- webbipalvelimen ja webbisivun pystytys ovat keskeisiä taitoja linux-ympäristön ylläpidossa, koska kyseessä on yksi linuxin perustoiminnoista
+- jos aikoo operoida enemmänkin linuxin kanssa, on tämä taito hyvä osata suoraan selkärangasta -> harjoitus tekee mestarin tässäkin!
+
+#### **Ansible Community Documentation: Handlers: running operations on change**
   - Handlers: running operations on change (johdantokappale pääotsikon alta)
   - Notifying handlers
-- 'ansible-doc service':
+
+Handlerit An­siblessa ovat tehtäviä, jotka suoritetaan vain silloin, kun jokin toinen tehtävä aiheuttaa muutoksen kohdejärjestelmässä (notify). Ne ratkaisevat tilanteen, jossa tietty toimenpide (esim. palvelun uudelleenkäynnistys) on tarpeen vain muutoksen jälkeen, ei jokaisella ajokerralla.
+
+**Omia mietteitä:**
+- Aihetta lukiessa mieleeni heräsi kysymys: Kannattaako kaikki restartit tehdä handlerilla vai onko tilanteita, joissa välitön restart on parempi vaihtoehto?
+
+Kysyin tätä Microsoft Copilotilta ja se vastasi seuraavasti:
+
+> Useimmiten restartit kannattaa tehdä handlerilla, mutta on poikkeuksia.
+>
+> - **Handler** on oikea valinta, kun restart tarvitaan vain **jos konfiguraatio muuttuu** (yleisin ja suositeltu tapa).
+> - **Välitön restart** voi olla perusteltu, jos:
+> 
+>   - seuraava tehtävä edellyttää heti uutta tilaa (esim. testaus heti muutoksen jälkeen)
+>   - muutos ei kestä playn loppuun odottamista
+>   - kyse on kertaluonteisesta tai ohjatusta toimenpiteestä
+>
+> **Yleisohje: käytä handleria oletuksena**, ja tee restart heti vain harkitusti ja perustellusta syystä.
+
+    
+#### **'ansible-doc service':**
   - johdantokappale (MODULE alta)
   - enabled
   - name
   - state
   - EXAMPLES
+
+ansible.builtin.service‑moduulia käytetään palveluiden hallintaan etäkohteissa (esim. käynnistys, pysäytys, uudelleenkäynnistys). Se tukee useita init‑järjestelmiä, kuten systemd, SysV, upstart, OpenRC ym.
+
+Moduuli toimii välikerroksena (proxy) taustalla olevalle palvelunhallintamodulille (esim. systemd tai sysvinit). Näin sama playbook toimii eri ympäristöissä ilman init‑järjestelmäkohtaisia muutoksia. Käytettävä palvelunhallinta valitaan automaattisesti tai tarvittaessa use‑valitsimella.
+
+Dokumentaatio kattaa vain ne argumentit, jotka ovat yhteisiä kaikille tuetuille järjestelmille, joten init‑järjestelmäkohtaisiin erikoisominaisuuksiin tarvitaan erilliset moduulit.
+Windows‑ympäristöissä tätä moduulia ei käytetä, vaan siihen on oma win_service‑moduuli.
+
+**enabled**: enabled-asetus hallitsee palvelun automaattista käynnistystä bootin yhteydessä. Se on valinnainen, mutta joko state tai enabled on aina määriteltävä.
+
+**name**: servicen nimi, tietotyyppi string (str) eli merkkijono.
+
+**state**: määrittää palvelun halutun tilan. Arvot **started** ja **stopped** ovat idempotentteja, eli ne aiheuttavat muutoksen vain, jos palvelu ei jo ole halutussa tilassa. Sen sijaan **restarted** (palvelun pysäytys ja uudelleen käynnistys) ja **reloaded** (konfiguraation uudelleen lataus ja palvelun käynnistys jos ei ole jo käynnissä) suoritetaan aina. Moduulin käyttö edellyttää, että **vähintään state tai enabled on määritelty**.
+
+**Examples**: tässä osiossa on kuvattu Ansible‑service‑moduulin esimerkkikäyttöjä, joilla hallitaan palveluiden tilaa (käynnistys, pysäytys, uudelleenkäynnistys jne.) etäkoneilla.
+Esimerkiksi ensimmäisessä kohdassa varmistetaan, että httpd‑palvelu on käynnissä: jos palvelu ei ole käynnissä, se käynnistetään, ja jos se on jo käynnissä, Ansible ei tee mitään.
+
     
 ### a) Apassi. Asenna Apache 2 käsin. Weppisivun tulee näkyä palvelimen etusivulla. Sivun tulee olla tavallisen käyttäjän muokattavissa, ilman root- tai sudo-oikeuksia.
 
@@ -106,4 +147,7 @@ Oikeusmääritys -rw-r--r-- 1 kertoo, että
 
 ### Lähteet
 
+Ansible-doc Service. Luettu: 11.4.2026
+
 Karvinen, T. 2026. Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 11.4.2026.
+
