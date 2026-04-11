@@ -432,6 +432,8 @@ ls -l -F
 
 **Ansible-doc Service**. Luettu: 11.4.2026
 
+**Ansible documentation. s.a.**. Playbook handlers. Luettavissa: https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_handlers.html. Luettu: 11.4.2026.
+
 **Heinonen, J.** 2026. Apache2. Luettavissa: https://github.com/johannaheinonen/johanna-test-repo/blob/main/module_3.md. Luettu: 11.4.2026.
 
 **Karvinen, T.** 2026. Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 11.4.2026.
