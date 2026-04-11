@@ -22,6 +22,74 @@ Artikkelissa löytyy myös esimerkkisisällöt hakemistorakenteeseen roles/apach
     
 ### a) Apassi. Asenna Apache 2 käsin. Weppisivun tulee näkyä palvelimen etusivulla. Sivun tulee olla tavallisen käyttäjän muokattavissa, ilman root- tai sudo-oikeuksia.
 
+Pakettien päivitys ja asennus
+
+```bash
+sudo apt-get update
+sudo apt-get install -y apache2
+```
+<img width="863" height="100" alt="image" src="https://github.com/user-attachments/assets/905e11ad-51ec-448d-bac1-8ac42ca335d4" />
+
+<img width="659" height="120" alt="image" src="https://github.com/user-attachments/assets/06e8a548-11ab-4a5d-b616-e4b7fa575a5b" />
+
+Seuraavaksi loin kotihakeistooni kansion **public_html** ja sinne webbisivutiedoston **index.html**.
+
+```bash
+cd ~
+mkdir public_html
+micro index.html
+```
+index.html:n sisältö:
+
+<img width="367" height="242" alt="image" src="https://github.com/user-attachments/assets/1ff9d6b7-09cc-442f-a82b-09fed07a959f" />
+
+Konfiguraatiotiedoston säätö
+
+```cd /etc/apache2/sites-available/
+micro 000-default.conf
+```
+Tiedoston tallennus ja sulku. Nyt sisältö näyttää tältä:
+
+<img width="705" height="213" alt="image" src="https://github.com/user-attachments/assets/e5212793-2e47-4a75-b632-4d6c0b958c72" />
+
+Syntaksin tarkistus
+
+```bash
+sudo apache2ctl configtest
+```
+
+-> tuloksena "Syntax OK"
+
+<img width="1252" height="103" alt="image" src="https://github.com/user-attachments/assets/350c4a67-6112-49c2-a324-cca50f2e7368" />
+
+Muutosten käyttöönotto
+
+```bash
+sudo systemctl reload apache2
+```
+
+localhost-sivun avaaminen selaimessa:
+
+<img width="518" height="265" alt="image" src="https://github.com/user-attachments/assets/874c8679-1b17-4693-bf91-11feb337ddf8" />
+
+(Note to self: sivulla näkyi aiemmin luennon aikana luomani nettisivu, mutta sivulle saa tehtyä *hard refreshin* painamalla **ctrl + shift + R**.)
+
+Tarkistetaan vielä webbisivutiedoston oikeudet:
+
+```bash
+cd ~/public_html/
+ls -l index.html
+```
+
+Tulos:
+
+<img width="558" height="39" alt="image" src="https://github.com/user-attachments/assets/304f77aa-656f-47ab-b2db-cf4b72ec9750" />
+
+Oikeusmääritys -rw-r--r-- 1 kertoo, että
+- kyseessä tavallinen tiedosto (-)
+- omistaja (samuli) saa muokata ja lukea tiedostoa (rw-)
+- ryhmä (samuli) saa lukea tiedostoa (r--)
+- muut saavat lukea tiedostoa (r--)
 
 
 ### b) Moottorix. Asenna Nginx käsin. Weppisivun tulee näkyä palvelimen etusivulla. Sivun tulee olla tavallisen käyttäjän muokattavissa, ilman root- tai sudo-oikeuksia. (Muista sammuttaa Apache ensin.)
@@ -37,3 +105,5 @@ Artikkelissa löytyy myös esimerkkisisällöt hakemistorakenteeseen roles/apach
 
 
 ### Lähteet
+
+Karvinen, T. 2026. Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 11.4.2026.
