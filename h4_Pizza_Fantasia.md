@@ -96,7 +96,6 @@ micro site.yml
 Lisätään fail2ban-rooli edellisten jatkoksi:
 
 <img width="279" height="238" alt="image" src="https://github.com/user-attachments/assets/0378bd8f-1859-46e6-967b-5431e78c1125" /><br>
-
 Laitetaan fail2ban pois päältä, jotta voidaan paremmin todentaa Ansiblen (asentaneen ja) käynnistäneen sen. Tarkistetaan vielä sen tila lopuksi.
 
 
@@ -152,13 +151,8 @@ sudo fail2ban-client ping
 ````
 
 
-<img width="890" height="76" alt="image" src="https://github.com/user-attachments/assets/582e606f-2463-4e46-a52a-bb2e3bb70b1d" />
-
-
-
-<img width="586" height="39" alt="image" src="https://github.com/user-attachments/assets/82b7e89d-568d-4fd6-9c15-ff1296f73549" />
-
-
+<img width="890" height="76" alt="image" src="https://github.com/user-attachments/assets/582e606f-2463-4e46-a52a-bb2e3bb70b1d" /><br>
+<img width="586" height="39" alt="image" src="https://github.com/user-attachments/assets/82b7e89d-568d-4fd6-9c15-ff1296f73549" /><br>
 👉 Nämä testit osoittavat, että **asennus Ansiblen kautta toimii odotetulla tavalla**.
 
 ### c) Asetus. Muuta asetustiedostoa herralla (master, "control node") ja aja ansible uudestaan. Osoita, että asetukset tulivat käyttöön.
@@ -171,8 +165,7 @@ Tarkistetaan ensin nykyinen bantime:
 sudo fail2ban-client get sshd bantime
 ````
 
-<img width="713" height="38" alt="image" src="https://github.com/user-attachments/assets/d1960052-84f2-4b18-b09c-f43bb14257e6" />
-
+<img width="713" height="38" alt="image" src="https://github.com/user-attachments/assets/d1960052-84f2-4b18-b09c-f43bb14257e6" /><br>
 bantime 600 tarkoittaa 600 sekuntia eli 10 minuuttia -> tavoitteena pidentää se lukuun 3600 (s) eli 1 tuntiin. Tehtävänannon kannalta on oleellista, että **/etc/failban/-hakemistoa ei manipuloida käsin** vaan Ansiblella.
 
 Luodaan asetustiedosto Ansible-roolin sisälle.
@@ -182,17 +175,14 @@ mkdir -p ~/bansibles/roles/fail2ban/files
 micro ~/bansibles/roles/fail2ban/files/jail.local
 ````
 
-Asetuksen sisältö (Microsoft Copilotin ohjeen mukaan):
+
+Asetuksen sisältö [(plesk.com)](https://www.plesk.com/blog/various/using-fail2ban-to-secure-your-server/).
 
 
-<img width="292" height="111" alt="image" src="https://github.com/user-attachments/assets/775bb86f-024c-47ff-9fb3-e23d5177a19b" />
-
-
+<img width="292" height="111" alt="image" src="https://github.com/user-attachments/assets/775bb86f-024c-47ff-9fb3-e23d5177a19b" /><br>
 Lisätään tehtävä main.yml-tiedostoon:
 
-<img width="800" height="506" alt="image" src="https://github.com/user-attachments/assets/6060c3c8-179b-422c-9904-2a5bea95d696" />
-
-
+<img width="800" height="506" alt="image" src="https://github.com/user-attachments/assets/6060c3c8-179b-422c-9904-2a5bea95d696" /><br>
 Handlerin lisäys (palvelun uudelleenkäynnistys)
 
 
@@ -201,9 +191,7 @@ mkdir -p ~/bansibles/roles/fail2ban/handlers
 nano ~/bansibles/roles/fail2ban/handlers/main.yml
 ````
 
-<img width="299" height="109" alt="image" src="https://github.com/user-attachments/assets/af6a3b9e-0908-4fc5-bc0e-0876879519e3" />
-
-
+<img width="299" height="109" alt="image" src="https://github.com/user-attachments/assets/af6a3b9e-0908-4fc5-bc0e-0876879519e3" /><br>
 Ajetaan seuraavaksi Ansible uudelleen ja katsotaan mitä tapahtuu :)
 
 
@@ -215,14 +203,14 @@ ansible-playbook -i hosts.ini site.yml
 Ilmoituksen perusteella näyttää siltä, että ajo onnistui odotetusti.
 
 
-<img width="1256" height="331" alt="image" src="https://github.com/user-attachments/assets/84e73255-09c0-44c0-98ce-cb51f09c81ec" />
-
-
+<img width="1256" height="331" alt="image" src="https://github.com/user-attachments/assets/84e73255-09c0-44c0-98ce-cb51f09c81ec" /><br>
 Todennetaan tämä vielä tarkistamalla fail2banin bantime:
+
 
 ````bash
 sudo fail2ban-client get sshd bantime
 ````
+
 
 <img width="707" height="59" alt="image" src="https://github.com/user-attachments/assets/e63aa192-a555-4e0a-82d0-afffd174ce4c" />
 
@@ -253,9 +241,7 @@ ansible-playbook -i hosts.ini site.yml
 Ilmoitusten perusteella näyttää siltä, että fail2ban on asentunut oikein.
 
 
-<img width="1158" height="319" alt="image" src="https://github.com/user-attachments/assets/c9d36595-002d-4c9a-a3a7-5ea6092c902a" />
-
-
+<img width="1158" height="319" alt="image" src="https://github.com/user-attachments/assets/c9d36595-002d-4c9a-a3a7-5ea6092c902a" /><br>
 Todennetaan lopuksi, että Ansible korjasi tilanteen odotetusti.
 
 
@@ -292,7 +278,6 @@ sudo fail2ban-client get sshd bantime
 
 <img width="902" height="76" alt="image" src="https://github.com/user-attachments/assets/4316c379-5976-4a26-9ef8-3570aaa7db92" /><br>
 <img width="723" height="54" alt="image" src="https://github.com/user-attachments/assets/182da843-4638-4ce6-abb8-8b53aeb3ed41" /><br>
-
 👉 Testien perusteella nähdään, että **mikään ei muuttunut eli tila on idempotentti.**
 
 ### Lähteet
@@ -302,5 +287,7 @@ sudo fail2ban-client get sshd bantime
 **Karvinen, T. 2026**. Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 19.4.2026.
 
 **Naranjo, D.y. s.a.** Fail2Ban on erinomainen vaihtoehto torjua palvelimen hyökkäykset. Luettavissa: https://blog.desdelinux.net/fi/fail2ban-on-erinomainen-vaihtoehto-torjua-palvelimen-raakavoimat/. Luettu: 19.4.2026.
+
+**Plesky, E. 29.2.2024**. How to Use Fail2ban to Secure Your Linux Server (CentOS, Ubuntu, Debian, Fedora, and Plesk). Luettavissa: https://www.plesk.com/blog/various/using-fail2ban-to-secure-your-server/. Luettu: 
 
 Yllä mainittujen lähteiden lisäksi käytin tehtävässä Microsoft Copilotia "konsulttina" (mitä kannattaa tehdä ja missä järjestyksessä sekä täsmennyksiä tiettyihin kohtiin miksi ne tehdään juuri tietyllä tavalla).
