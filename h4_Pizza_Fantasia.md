@@ -49,16 +49,14 @@ Todennetaan seuraavaksi, että fail2ban on asentunut ja toimii.
 dpkg -l | grep fail2ban
 ````
 
-<img width="1262" height="59" alt="image" src="https://github.com/user-attachments/assets/1c05f9cd-c4af-4ccc-b05a-8a85f389c374" />
-
+<img width="1262" height="59" alt="image" src="https://github.com/user-attachments/assets/1c05f9cd-c4af-4ccc-b05a-8a85f389c374" /><br>
 **Palvelun tilan tarkistus**
 
 ````bash
 systemctl status fail2ban
 ````
 
-<img width="898" height="77" alt="image" src="https://github.com/user-attachments/assets/32135233-741f-4333-bce3-c0a12bb03407" />
-
+<img width="898" height="77" alt="image" src="https://github.com/user-attachments/assets/32135233-741f-4333-bce3-c0a12bb03407" /><br>
 **Konfiguraation kevyt testaus**
 
 ````bash
@@ -79,9 +77,7 @@ mkdir -p roles/fail2ban/tasks
 tree
 ````
 
-<img width="629" height="304" alt="image" src="https://github.com/user-attachments/assets/7088b6e6-9560-4883-995f-b6d44f0b06a2" />
-
-
+<img width="629" height="304" alt="image" src="https://github.com/user-attachments/assets/7088b6e6-9560-4883-995f-b6d44f0b06a2" /><br>
 **Luodaan main.yml-tiedosto tasks-kansioon**
 
 ````bash
@@ -90,8 +86,7 @@ micro roles/fail2ban/tasks/main.yml
 
 Tiedoston sisältö:
 
-<img width="796" height="332" alt="image" src="https://github.com/user-attachments/assets/b3eb4744-a4c4-47a5-9970-c5a3891a4515" />
-
+<img width="796" height="332" alt="image" src="https://github.com/user-attachments/assets/b3eb4744-a4c4-47a5-9970-c5a3891a4515" /><br>
 **Kytketään rooli mukaan site.yml:ään**
 
 ````bash
@@ -100,10 +95,10 @@ micro site.yml
 
 Lisätään fail2ban-rooli edellisten jatkoksi:
 
-<img width="279" height="238" alt="image" src="https://github.com/user-attachments/assets/0378bd8f-1859-46e6-967b-5431e78c1125" />
-
+<img width="279" height="238" alt="image" src="https://github.com/user-attachments/assets/0378bd8f-1859-46e6-967b-5431e78c1125" /><br>
 
 Laitetaan fail2ban pois päältä, jotta voidaan paremmin todentaa Ansiblen (asentaneen ja) käynnistäneen sen. Tarkistetaan vielä sen tila lopuksi.
+
 
 ````bash
 sudo systemctl stop fail2ban
@@ -111,10 +106,9 @@ sudo systemctl disable
 systemctl status fail2ban
 ````
 
-<img width="1082" height="227" alt="image" src="https://github.com/user-attachments/assets/53b0169f-9990-4525-94ca-e1a2a8dff738" />
 
-
-Statuksesta nähdään, että paketti on edelleen asennettuna, mutta palvelu ei ole käynnissä eikä käynnisty automaattisesti.
+<img width="1082" height="227" alt="image" src="https://github.com/user-attachments/assets/53b0169f-9990-4525-94ca-e1a2a8dff738" /><br>
+Statuksesta nähdään, että **paketti on edelleen asennettuna, mutta palvelu ei ole käynnissä eikä käynnisty automaattisesti**.
 
 **Ajetaan seuraavaksi Ansible-playbook**
 ````bash
@@ -123,15 +117,14 @@ ansible-playbook -i hosts.ini site.yml
 
 ⚠️ Komento tuotti seuraavanlaisen virheilmoituksen:
 
-<img width="1262" height="473" alt="image" src="https://github.com/user-attachments/assets/2177f2dc-7353-4d1f-93d0-5568117b91e5" />
-
-
-
+<img width="1262" height="473" alt="image" src="https://github.com/user-attachments/assets/2177f2dc-7353-4d1f-93d0-5568117b91e5" /><br>
 Virheilmoitus ei liity fail2baniin vaan aiempaan tehtävään liityen nginx-demoniin. Koska en tarvitse nginx:ää tässä tehtävässä, kommentoin rivin pois site.yml-tiedostosta.
+
 
 ````bash
 micro site.yml
 ````
+
 
 Muokattu versio:
 <img width="306" height="243" alt="image" src="https://github.com/user-attachments/assets/60bd8f07-85af-452d-87dc-8cd891370dd0" />
@@ -139,21 +132,25 @@ Muokattu versio:
 
 **Ajetaan ansible-playbook uudelleen**
 
+
 ````bash
 ansible-playbook -i hosts.ini site.yml
 ````
+
 
 Tällä kertaa kaikki näytti menevän läpi oikein.
 
 <img width="1262" height="260" alt="image" src="https://github.com/user-attachments/assets/b6a286cd-f9c2-4203-96e2-a23999a8d657" />
 
-
+<br>
 Tarkistetaan vielä fail2banin tila:
+
 
 ````bash
 systemctl status fail2ban
 sudo fail2ban-client ping
 ````
+
 
 <img width="890" height="76" alt="image" src="https://github.com/user-attachments/assets/582e606f-2463-4e46-a52a-bb2e3bb70b1d" />
 
@@ -267,19 +264,43 @@ systemctl status fail2ban
 sudo fail2ban-client get sshd bantime
 ````
 
-<img width="893" height="79" alt="image" src="https://github.com/user-attachments/assets/520c2b9c-689c-477a-9c83-8b2300cda83b" />
-
-
-<img width="713" height="40" alt="image" src="https://github.com/user-attachments/assets/d7d01373-623d-4794-8c6b-b6cf0716454e" />
-
-
+<img width="893" height="79" alt="image" src="https://github.com/user-attachments/assets/520c2b9c-689c-477a-9c83-8b2300cda83b" /><br>
+<img width="713" height="40" alt="image" src="https://github.com/user-attachments/assets/d7d01373-623d-4794-8c6b-b6cf0716454e" /><br>
 👉 Testien perusteella nähdään, että **fail2ban asentui oikein ja bantime muuttui odotetusti.**
 
 
 ### e) Idempotentti. Osoita, että tilasi on idempotentti.
 
+Tila on idempotentti, jos Ansiblen uudelleen ajamalla mikään ei muutu.
+
+Edellisen tehtävän lopuksi tarkistettiin, että fail2ban on käynnissä ja bantime muutettu 1 tuntiin. Jatketaan siis tästä.
+
+**Ajetaan ansible-playbook uudelleen**
+
+````bash
+ansible-playbook -i hosts.ini site.yml
+````
+
+<img width="1259" height="57" alt="image" src="https://github.com/user-attachments/assets/eb48c21b-d29a-4cba-8326-c0a4a159b42c" /><br>
+👉 Tästä tuloksesta nähdään jo, että **mikään ei muuttunut (changed=0)**. Todennetaan vielä testaamalla fail2banin status ja bantime.
+
+
+````bash
+systemctl status fail2ban
+sudo fail2ban-client get sshd bantime
+````
+
+<img width="902" height="76" alt="image" src="https://github.com/user-attachments/assets/4316c379-5976-4a26-9ef8-3570aaa7db92" /><br>
+<img width="723" height="54" alt="image" src="https://github.com/user-attachments/assets/182da843-4638-4ce6-abb8-8b53aeb3ed41" /><br>
+
+👉 Testien perusteella nähdään, että **mikään ei muuttunut eli tila on idempotentti.**
+
 ### Lähteet
 
 **Karvinen, T. 2024**. Configuration Management of Distributed Systems over Unreliable and Hostile Networks. Luettavissa: https://westminsterresearch.westminster.ac.uk/item/w7vvz/configuration-management-of-distributed-systems-over-unreliable-and-hostile-networks. Luettu: 19.4.2026.
 
+**Karvinen, T. 2026**. Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 19.4.2026.
+
 **Naranjo, D.y. s.a.** Fail2Ban on erinomainen vaihtoehto torjua palvelimen hyökkäykset. Luettavissa: https://blog.desdelinux.net/fi/fail2ban-on-erinomainen-vaihtoehto-torjua-palvelimen-raakavoimat/. Luettu: 19.4.2026.
+
+Yllä mainittujen lähteiden lisäksi käytin tehtävässä Microsoft Copilotia "konsulttina" (mitä kannattaa tehdä ja missä järjestyksessä sekä täsmennyksiä tiettyihin kohtiin miksi ne tehdään juuri tietyllä tavalla).
