@@ -283,6 +283,13 @@ git commit -m "Päivitetty Ansible-roolin task ja ajettu playbook"
 git push
 ````
 
+Tällä kertaa git push ei toiminutkaan odotetusti. 
+
+<img width="1111" height="219" alt="image" src="https://github.com/user-attachments/assets/afd63b95-c15c-46d7-8f05-fd36bfea3cb0" />
+
+Microsoft Copilotin mukaan ongelma johtuu todennäköisesti siitä, että kirjotin tokenin väärin. Kokeillaan siis uudelleen ja tällä kertaa erityisellä tarkkuudella.
+
+Edelleen tuli sama error: <img width="968" height="215" alt="image" src="https://github.com/user-attachments/assets/20bb0328-7380-4702-be04-e69624a913cb" />
 
 
 ### f) Hae pari projektiin Moodlen keskustelusta. (Tästä alakohdasta f ei tarvitse tehdä vaiheittaista teknistä raporttia, riittää kun toteat, että pari on hankittu.)
