@@ -165,8 +165,125 @@ git config --global user.email
 git config --global user.email   # tämän perään koulun sähköposiosoite tuplahipsujen sisällä
 ````
 
+<img width="1149" height="157" alt="image" src="https://github.com/user-attachments/assets/55876e07-2d98-4ed2-bf6d-998f5d38d788" />
+
 
 ### e) Gitanbile. Laita Ansible-kansio versionhallintaan. Tee jokin muutos, aja ansiblella, tallenna versio (commit).
+
+Luodaan projektikansioon hakemisto ansiblea varten, tarkistetaan status ja commitoidaan tehdyt muutokset.
+
+````bash
+mkdir gitanible
+ls -l
+git status
+git add gitanible/
+git commit -m "Lisätty gitanible-kansio versionhallintaan"
+````
+
+<img width="1022" height="351" alt="image" src="https://github.com/user-attachments/assets/58e5d9ae-dfb9-4af9-abcb-3c78c1905525" /><br>
+
+Näyttää siltä, ettei olisi mitään muutoksia. Microsoft Copilot tarjosi tähän seuraavanlaisen selityksen:
+
+> **Git ei versionhallinnoi tyhjiä hakemistoja.**
+> - gitanible/ on tyhjä
+> - Git ei näe siinä mitään seurattavaa
+> - Siksi git status pysyy “clean”‑tilassa
+> - Ja git commit ei tee mitään
+>
+> Tämä on odotettu ja normaali Gitin toiminta.
+
+Luodaan projektikansioon tarvittavat hilavitkuttimet ansiblen käyttöä varten.
+
+````
+cd ~
+cd sunshine-of-your-love
+tree
+cd gitanible
+mkdir roles
+micro site.yml
+micro hosts.ini
+micro ansible.cfg
+<roles->> KESKEN
+````
+
+site.yml-tiedoston sisältö
+
+<img width="234" height="111" alt="image" src="https://github.com/user-attachments/assets/d51faffe-86f5-414a-be18-c8d7d4caa9fb" /><br>
+hosts.ini-tiedoston sisältö
+
+<img width="505" height="114" alt="image" src="https://github.com/user-attachments/assets/1bb6a388-c30a-446e-a199-a1639319d870" /><br>
+
+ansible.cfg-tiedoston sisältö
+
+<img width="287" height="50" alt="image" src="https://github.com/user-attachments/assets/3a8a7353-a5b3-44bd-b797-88e35422a14d" />
+
+Loin tarpeellisen kansiorakenteen ja tiedoston menemällä roles/-kansioon ja ajamalla komennon
+
+````bash
+ansible-galaxy init gitanible
+````
+
+<img width="906" height="461" alt="image" src="https://github.com/user-attachments/assets/1d2c583e-3d2d-4380-9c2b-a8bf2c8f7d77" /><br>
+
+main.yml-tiedoston sisältö
+
+<img width="406" height="71" alt="image" src="https://github.com/user-attachments/assets/8961b661-efc7-46aa-bf1f-e2ea92d056d9" />
+
+Ajetaan site.yml gitanible-kansiossa
+
+````bash
+ansible-playbook site.yml
+````
+
+<img width="1149" height="306" alt="image" src="https://github.com/user-attachments/assets/a4d7fd28-49a4-430f-8110-b7cca7a45606" />
+
+Kuvasta nähdään, että ansible toimii. Todennetaan, että ansible-kansio ei vielä ole versionhallinnassa. Tehdään tarvittavat toimenpiteet.
+
+````bash
+git add gitanible/
+git status
+git commit -m "Lisätty ansible-kansio versionhallintaan"
+````
+
+<img width="1018" height="652" alt="image" src="https://github.com/user-attachments/assets/8a167062-b2f4-41d5-bbc2-9dd1f07a9cd5" />
+
+Kuvasta nähdään, että nyt ansible-kansio on versionhallinnassa.
+
+Tehdään muutos main.yml-tiedostoon.
+
+````bash
+micro gitanible/roles/gitanible/tasks/main.yml
+````
+
+<img width="876" height="80" alt="image" src="https://github.com/user-attachments/assets/e2cae281-283e-40ad-ab1a-ac2ae156df91" /><br>
+
+Tarkistetaan muutokset
+
+````bash
+git status
+````
+
+<img width="716" height="228" alt="image" src="https://github.com/user-attachments/assets/ffd5603c-f2d2-4de0-93d0-43cfb03728d4" />
+
+Kuvasta nähdään, että main.yml-tiedostoon on tehty muutos, jota ei ole commitoitu. Ajetaan seuraavaksi playbook ennen commitia:
+
+````bash
+cd gitanible
+ansible-playbook site.yml
+cd ..
+````
+
+<img width="1144" height="343" alt="image" src="https://github.com/user-attachments/assets/40819f09-ef9e-4932-9263-38922a6eb12b" />
+
+Tallennetaan muutos versionhallintaan.
+
+````bash
+git add gitanible/
+git commit -m "Päivitetty Ansible-roolin task ja ajettu playbook"
+git push
+````
+
+
 
 ### f) Hae pari projektiin Moodlen keskustelusta. (Tästä alakohdasta f ei tarvitse tehdä vaiheittaista teknistä raporttia, riittää kun toteat, että pari on hankittu.)
 
