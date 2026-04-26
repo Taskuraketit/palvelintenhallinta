@@ -95,6 +95,7 @@ Seuraavaksi tarkistin vielä gitin statuksen
 git status
 ````
 
+<img width="558" height="130" alt="image" src="https://github.com/user-attachments/assets/ffedc9ae-e4ff-4c7c-9950-f8a3e11130d8" /><br>
 Kuvassa näkyy, ettei uutta commitoitavaa ole ja että yksi commit odottaa siirtoa.
 
 Muutosten pusku palvelimelle:
@@ -112,7 +113,58 @@ Muutosten tarkistus webbiliittymästä:
 
 ### c) Doh! Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset ‘git reset --hard’. Huomaa, että tässä toiminnossa ei ole peruutusnappia.
 
+Tässä kohtaa README.md-tiedoston poistaminen olisi typerää, joten mennään sillä.
+
+````bash
+ls -l
+rm README.md
+git status
+git reset --hard
+git status
+````
+
+<img width="720" height="473" alt="image" src="https://github.com/user-attachments/assets/f1f02c17-340d-4b7a-a0da-d50a49f245d5" />
+
+Kuvasta nähdään, että resetointi onnistui. Todennetaan vielä webbiliittymässä, ettei README.md ole deletoitu.
+
+<img width="1186" height="653" alt="image" src="https://github.com/user-attachments/assets/703e150b-a7e3-45b1-a4f6-53ef8a00b18f" />
+
+**git reset --hard palauttaa myös poistetun README-tiedoston, jos poistoa ei ole vielä committoitu. Komento palauttaa työpuun viimeisimmän commitin tilaan ja poistaa kaikki committoimattomat muutokset pysyvästi. Committoituja poistoja resetointi ei enää peru.**
+
 ### d) Tukki. Tarkastele ja selitä varastosi lokia. Näytä myös, mitä muutoksia tiedostoihin on tehty. Tarkista, että nimesi ja sähköpostiosoitteesi näkyy haluamallasi tavalla ja korjaa tarvittaessa.
+
+Tässä kohtaa hyödynnetty speksejä Gitin nettisivuilta [(Git-log documentation)](https://git-scm.com/docs/git-log).
+
+Lokien tarkistus
+
+````bash
+git log
+````
+
+<img width="883" height="255" alt="image" src="https://github.com/user-attachments/assets/941298eb-7e6b-46da-a198-c1fe1d870c51" /><br>
+
+````bash
+git show
+````
+
+<img width="1041" height="324" alt="image" src="https://github.com/user-attachments/assets/bb8045cc-eb41-4f03-aab8-9490541b0c8b" /><br>
+Yllä olevasta kuvasta näkyy, että README.md-tiedostoon on lisätty tekstirivi ("Tätä tiedostoa on...")
+
+Tiiviimpi yhteenveto:
+
+````bash
+git show --stat
+````
+
+<img width="879" height="191" alt="image" src="https://github.com/user-attachments/assets/dc3ef464-9cb9-4f09-9641-26b36a0908a5" /><br>
+Aiemmasta jo näkyi, että nimeni ja sähköpostiosoitteeni olivat oikein. Tehdään vielä oppimismielessä tarkistus ja sähköpostiosoitteen muutos henkilökohtaisesta sähköpostiosoitteesta Haaga-Helian sähköpostiosoitteeksi.
+
+````bash
+git config --global user.name
+git config --global user.email
+git config --global user.email   # tämän perään koulun sähköposiosoite tuplahipsujen sisällä
+````
+
 
 ### e) Gitanbile. Laita Ansible-kansio versionhallintaan. Tee jokin muutos, aja ansiblella, tallenna versio (commit).
 
