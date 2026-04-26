@@ -75,8 +75,40 @@ Microsoft Copilot antoi virheilmoitukselle seuraavanlaisen analyysin:
 > Vaikka salasana olisi ollut oikein, GitHub hylkää sen automaattisesti turvallisuussyistä.
 > Oikea tapa tunnistautua on käyttää salasanan sijasta GitHubin Personal Access Tokenia tai SSH‑avaimia.
 
+**Tokenin luonti Microsoft Copilotin ohjeiden mukaan**
 
+Valikon kautta asetuksiin (Settings) 
 
+<img width="251" height="586" alt="image" src="https://github.com/user-attachments/assets/7473cd63-b3bb-4093-a10e-ac305fd501ac" /><br>
+Developer Settings -> Personal access tokens -> Tokens (classic) -> Generate new token -> Generate new token (classic)
+
+<img width="1353" height="605" alt="image" src="https://github.com/user-attachments/assets/cf87b771-d6d0-4c0b-be20-09e01514e37d" /><br>
+Tokenin asetukset:
+
+<img width="1003" height="503" alt="image" src="https://github.com/user-attachments/assets/84aebd1d-bdb8-4719-b0d0-00c289fdef74" />
+
+Sain ilmoituksen tokenin luonnin onnistumisesta ja tallensin sen salasanapankkiini.
+
+Seuraavaksi tarkistin vielä gitin statuksen
+
+````bash
+git status
+````
+
+Kuvassa näkyy, ettei uutta commitoitavaa ole ja että yksi commit odottaa siirtoa.
+
+Muutosten pusku palvelimelle:
+
+````bash
+git push
+````
+
+Tämän jälkeen syötin käyttäjätunnukseni sekä äsken luomanin tokenin. Tämän jälkeen siirto onnistui.
+
+<img width="688" height="249" alt="image" src="https://github.com/user-attachments/assets/9ff9c1d1-91ba-47dc-bef5-85c414edb987" /><br>
+Muutosten tarkistus webbiliittymästä:
+
+<img width="1140" height="432" alt="image" src="https://github.com/user-attachments/assets/979895f6-e29a-4e55-86bd-4e18ecbf49a0" />
 
 ### c) Doh! Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset ‘git reset --hard’. Huomaa, että tässä toiminnossa ei ole peruutusnappia.
 
