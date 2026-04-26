@@ -18,6 +18,19 @@
 
 ### a) Online. Tee uusi varasto GitHubiin (tai Gitlabiin tai mihin vain vastaavaan palveluun). Varaston nimessä ja lyhyessä kuvauksessa tulee olla sana "sunshine". Aiemmin tehty varasto ei kelpaa. (Muista tehdä varastoon tiedostoja luomisvaiheessa, esim README.md ja GNU General Public License 3) Edistyneemmille voi olla hauskaa etsiä ja kokeilla jokin muu palvelu kuin Github.
 
+Ensin kirjauduin GutHubiin omilla tunnuksillani ja valitsin oikean yläkulman valikosta "New repository". 
+
+<img width="245" height="267" alt="image" src="https://github.com/user-attachments/assets/16503e1f-2afd-42b9-b256-cabc1fbbcbd3" /><br>
+Seuraavaksi loin repositorion "Sunshine of your love" alla olevilla spekseillä: 
+
+<img width="730" height="692" alt="image" src="https://github.com/user-attachments/assets/aa9dc820-cd0e-4d84-81b3-c2ee60d8fbaa" /><br>
+Tämän jälkeen tarkistin vielä lopputuloksen:
+
+<img width="1121" height="526" alt="image" src="https://github.com/user-attachments/assets/743defd7-001c-4a39-8a92-6a2bae6b1518" />
+
+
+
+
 ### b) Dolly. Kloonaa edellisessä kohdassa tehty uusi varasto itsellesi, tee muutoksia omalla koneella, puske ne palvelimelle, ja näytä, että ne ilmestyvät weppiliittymään.
 
 ### c) Doh! Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset ‘git reset --hard’. Huomaa, että tässä toiminnossa ei ole peruutusnappia.
