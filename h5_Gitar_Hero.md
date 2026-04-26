@@ -5,14 +5,14 @@
 - Gitin keskeisiä ominaisuuksia ovat paikallinen toiminta (suurin osa toiminnoista ei vaadi verkkoyhteyttä), korkea suorituskyky sekä tietojen eheys, joka perustuu tarkistussummiin (SHA-1-hajautusarvot). Lisäksi Git lisää pääasiassa vain uutta dataa, mikä tekee virheiden peruuttamisesta ja kokeilemisesta turvallista.
 - Gitissä tiedostot voivat olla kolmessa eri tilassa: muokattu (modified), välivaiheessa (staged) tai tallennettu (committed). Näitä vastaavat projektin kolme pääaluetta: työskentelyhakemisto, staging area ja Git-hakemisto. Tämä rakenne antaa käyttäjälle tarkkaa hallintaa siitä, mitä muutoksia seuraavaan tallennukseen sisällytetään.
 
-💡 **Omia mietteitä:** Git tuntuu olevan yksinkertaisen nerokas järjestelmä ja siitä löytyy paljon sovelluksia. Yksi näistä on GitHub ja ihmettelen miksi sitä ei käytetä Haaga-Heliassa enemmän eri kursseilla tehdyn työn dokumentointiin.
+💡 **Omia mietteitä:** Git tuntuu olevan yksinkertaisen nerokas järjestelmä ja siitä löytyy paljon sovelluksia. Herää kysymys miksi GitHubia ei käytetä Haaga-Heliassa enemmän eri kursseilla tehdyn työn dokumentointiin. Tästä olisi ollut valtavasti hyötyä esimerkiksi Windows-palvelimet-kurssilla, missä asiat dokumentoitiin Wordilla ja dokumentit palautettiin Moodleen pdf-tiedostoina - GitHub olisi ollut mielestäni suoraviivaisempi tapa dokumentointiin. 
   
 #### 💻 Gitin käyttö on lähinnä 'git add --all && git commit; git pull && git push'. Selitä tuon komennon jokainen osa. Käytä apuna itse valitsemiasi lähteitä ja viittaa niihin.
 
   - **git add --all:** git add -A on “tee kaikki oikein” ‑komento, joka huolehtii siitä, että staging area vastaa täysin työskentelyhakemiston tämänhetkistä tilaa. Se lisää uudet tiedostot staging-alueelle, päivittää muokatut tiedostot staging-alueella ja merkitsee poistetut tiedostot poistettaviksi staging-alueella. [(Git add documentation)](https://git-scm.com/docs/git-add)
   - **git commit:** git commit luo uuden version projektista tallentamalla staging area ‑alueelle valitut muutokset Git-historiaan. Commit on uusi versio projektista, on nykyisen haaran (branch) uusi kärki ja sisältää tilannekuvan staging area ‑alueesta, ei suoraan työskentelyhakemistosta. [(Git commit documentation)](https://git-scm.com/docs/git-commit)
   - **git pull:** git pull hakee muutokset etärepositoriosta ja yhdistää ne nykyiseen haaraan joko fast-forwardilla, mergellä tai rebasella. [(Git pull documentation)](https://git-scm.com/docs/git-pull)
-  - **git push:** git push vie paikalliset commitit etärepositorioon ja päivittää siellä olevat haarat vastaamaan paikallista historiaa. [(Git push documentation)](https://git-scm.com/docs/git-pull)
+  - **git push:** git push vie paikalliset commitit etärepositorioon ja päivittää siellä olevat haarat vastaamaan paikallista historiaa. [(Git push documentation)](https://git-scm.com/docs/git-push)
 
 💡 **Omia mietteitä:** Git-työnkulku auttaa hallitsemaan muutoksia vaiheittain: ensin valitaan, sitten tallennetaan, sen jälkeen synkronoidaan ja lopuksi julkaistaan. Tosielämän analogia voisi olla vaikka seuraavanlainen: ensin valitaan raportista kappaleet, jotka ovat valmiit palautettaviksi (git add). Seuraavaksi tallennetaan valitut kappaleet omaksi luonnosversioksi (git commit). Tämän jälkeen tarkistetaan muiden ryhmäläisten viimeisimmät muutokset ja yhdistetään ne omaan versioon (git pull). Lopuksi lähetetään päivitetty versio yhteiseen pilvipalveluun kaikkien käyttöön (git push).
 
@@ -30,14 +30,13 @@ Tämän jälkeen tarkistin vielä lopputuloksen:
 
 ### b) Dolly. Kloonaa edellisessä kohdassa tehty uusi varasto itsellesi, tee muutoksia omalla koneella, puske ne palvelimelle, ja näytä, että ne ilmestyvät weppiliittymään.
 
-**Varaston kloonaus omalle koneelle ja tarkistus, että kansio tuli luoduksi**
+**Varaston kloonaus omalle koneelle**
 
 ````bash
 git clone https://github.com/Taskuraketit/sunshine-of-your-love
-ls -l
 ````
 
-<img width="905" height="461" alt="image" src="https://github.com/user-attachments/assets/48c44eb3-a152-43e4-918c-266101ac4bc0" /><br>
+<img width="1130" height="168" alt="image" src="https://github.com/user-attachments/assets/fed3f3e6-d4fb-4464-bccd-612160f88d51" /><br>
 Siirryin kansioon ja tein README.md-tiedostoon muutoksia paikallisesti.
 
 <img width="654" height="129" alt="image" src="https://github.com/user-attachments/assets/c3b48528-b89b-4795-8b5a-1108cf4a0e6b" /><br>
@@ -123,11 +122,10 @@ git reset --hard
 git status
 ````
 
-<img width="720" height="473" alt="image" src="https://github.com/user-attachments/assets/f1f02c17-340d-4b7a-a0da-d50a49f245d5" />
-
+<img width="720" height="473" alt="image" src="https://github.com/user-attachments/assets/f1f02c17-340d-4b7a-a0da-d50a49f245d5" /><br>
 Kuvasta nähdään, että resetointi onnistui. Todennetaan vielä webbiliittymässä, ettei README.md ole deletoitu.
 
-<img width="1186" height="653" alt="image" src="https://github.com/user-attachments/assets/703e150b-a7e3-45b1-a4f6-53ef8a00b18f" />
+<img width="1186" height="653" alt="image" src="https://github.com/user-attachments/assets/703e150b-a7e3-45b1-a4f6-53ef8a00b18f" /><br>
 
 **git reset --hard palauttaa myös poistetun README-tiedoston, jos poistoa ei ole vielä committoitu. Komento palauttaa työpuun viimeisimmän commitin tilaan ja poistaa kaikki committoimattomat muutokset pysyvästi. Committoituja poistoja resetointi ei enää peru.**
 
@@ -142,7 +140,6 @@ git log
 ````
 
 <img width="883" height="255" alt="image" src="https://github.com/user-attachments/assets/941298eb-7e6b-46da-a198-c1fe1d870c51" /><br>
-
 ````bash
 git show
 ````
@@ -181,7 +178,6 @@ git commit -m "Lisätty gitanible-kansio versionhallintaan"
 ````
 
 <img width="1022" height="351" alt="image" src="https://github.com/user-attachments/assets/58e5d9ae-dfb9-4af9-abcb-3c78c1905525" /><br>
-
 Näyttää siltä, ettei olisi mitään muutoksia. Microsoft Copilot tarjosi tähän seuraavanlaisen selityksen:
 
 > **Git ei versionhallinnoi tyhjiä hakemistoja.**
@@ -212,11 +208,9 @@ site.yml-tiedoston sisältö
 hosts.ini-tiedoston sisältö
 
 <img width="505" height="114" alt="image" src="https://github.com/user-attachments/assets/1bb6a388-c30a-446e-a199-a1639319d870" /><br>
-
 ansible.cfg-tiedoston sisältö
 
-<img width="287" height="50" alt="image" src="https://github.com/user-attachments/assets/3a8a7353-a5b3-44bd-b797-88e35422a14d" />
-
+<img width="287" height="50" alt="image" src="https://github.com/user-attachments/assets/3a8a7353-a5b3-44bd-b797-88e35422a14d" /><br>
 Loin tarpeellisen kansiorakenteen ja tiedoston menemällä roles/-kansioon ja ajamalla komennon
 
 ````bash
@@ -224,19 +218,16 @@ ansible-galaxy init gitanible
 ````
 
 <img width="906" height="461" alt="image" src="https://github.com/user-attachments/assets/1d2c583e-3d2d-4380-9c2b-a8bf2c8f7d77" /><br>
-
 main.yml-tiedoston sisältö
 
-<img width="406" height="71" alt="image" src="https://github.com/user-attachments/assets/8961b661-efc7-46aa-bf1f-e2ea92d056d9" />
-
+<img width="406" height="71" alt="image" src="https://github.com/user-attachments/assets/8961b661-efc7-46aa-bf1f-e2ea92d056d9" /><br>
 Ajetaan site.yml gitanible-kansiossa
 
 ````bash
 ansible-playbook site.yml
 ````
 
-<img width="1149" height="306" alt="image" src="https://github.com/user-attachments/assets/a4d7fd28-49a4-430f-8110-b7cca7a45606" />
-
+<img width="1149" height="306" alt="image" src="https://github.com/user-attachments/assets/a4d7fd28-49a4-430f-8110-b7cca7a45606" /><br>
 Kuvasta nähdään, että ansible toimii. Todennetaan, että ansible-kansio ei vielä ole versionhallinnassa. Tehdään tarvittavat toimenpiteet.
 
 ````bash
@@ -245,8 +236,7 @@ git status
 git commit -m "Lisätty ansible-kansio versionhallintaan"
 ````
 
-<img width="1018" height="652" alt="image" src="https://github.com/user-attachments/assets/8a167062-b2f4-41d5-bbc2-9dd1f07a9cd5" />
-
+<img width="1018" height="652" alt="image" src="https://github.com/user-attachments/assets/8a167062-b2f4-41d5-bbc2-9dd1f07a9cd5" /><br>
 Kuvasta nähdään, että nyt ansible-kansio on versionhallinnassa.
 
 Tehdään muutos main.yml-tiedostoon.
@@ -256,15 +246,13 @@ micro gitanible/roles/gitanible/tasks/main.yml
 ````
 
 <img width="876" height="80" alt="image" src="https://github.com/user-attachments/assets/e2cae281-283e-40ad-ab1a-ac2ae156df91" /><br>
-
 Tarkistetaan muutokset
 
 ````bash
 git status
 ````
 
-<img width="716" height="228" alt="image" src="https://github.com/user-attachments/assets/ffd5603c-f2d2-4de0-93d0-43cfb03728d4" />
-
+<img width="716" height="228" alt="image" src="https://github.com/user-attachments/assets/ffd5603c-f2d2-4de0-93d0-43cfb03728d4" /><br>
 Kuvasta nähdään, että main.yml-tiedostoon on tehty muutos, jota ei ole commitoitu. Ajetaan seuraavaksi playbook ennen commitia:
 
 ````bash
@@ -273,8 +261,7 @@ ansible-playbook site.yml
 cd ..
 ````
 
-<img width="1144" height="343" alt="image" src="https://github.com/user-attachments/assets/40819f09-ef9e-4932-9263-38922a6eb12b" />
-
+<img width="1144" height="343" alt="image" src="https://github.com/user-attachments/assets/40819f09-ef9e-4932-9263-38922a6eb12b" /><br>
 Tallennetaan muutos versionhallintaan.
 
 ````bash
@@ -285,14 +272,49 @@ git push
 
 Tällä kertaa git push ei toiminutkaan odotetusti. 
 
-<img width="1111" height="219" alt="image" src="https://github.com/user-attachments/assets/afd63b95-c15c-46d7-8f05-fd36bfea3cb0" />
-
+<img width="1111" height="219" alt="image" src="https://github.com/user-attachments/assets/afd63b95-c15c-46d7-8f05-fd36bfea3cb0" /><br>
 Microsoft Copilotin mukaan ongelma johtuu todennäköisesti siitä, että kirjotin tokenin väärin. Kokeillaan siis uudelleen ja tällä kertaa erityisellä tarkkuudella.
 
-Edelleen tuli sama error: <img width="968" height="215" alt="image" src="https://github.com/user-attachments/assets/20bb0328-7380-4702-be04-e69624a913cb" />
+Edelleen tuli sama error: 
+
+<img width="968" height="215" alt="image" src="https://github.com/user-attachments/assets/20bb0328-7380-4702-be04-e69624a913cb" /><br>
+Tässä kohtaa Copilot kehotti tyhjentämään Gitin muistamat GitHub-tunnuset ja syöttämään ne uudelleen.
+
+````bash
+rm -f ~/.git-credentials
+git config --global --unset credential.helper
+````
+
+<img width="930" height="62" alt="image" src="https://github.com/user-attachments/assets/e9f16fef-ea9f-41c0-84fd-db2f15852029" /><br>
+Tämän jälkeen kokeilin git pushia uudelleen.
+
+<img width="956" height="98" alt="image" src="https://github.com/user-attachments/assets/a0d2f6ec-aab0-411e-95c9-2c7d7f142ad1" /><br>
+Tässä kohtaa huomasin itse mokanneeni. Syöttämäni "token" ei ollutkaan oikea vaan toiseen käyttötarkoitukseen oleva merkkijono. Siispä edetään edelleen git pushilla, mutta tällä kertaa syöttäen oikea koodi.
+
+<img width="630" height="251" alt="image" src="https://github.com/user-attachments/assets/227c647c-da97-46ad-b5f3-4bfaa405291e" /><br>
+Kuvasta nähdään, että git push meni nyt läpi eli oma moka oli kyseessä.
+
+Todennetaan vielä muutosten oikeellisuus GitHubista:
+
+<img width="1190" height="704" alt="image" src="https://github.com/user-attachments/assets/a6cb685e-dbb3-499f-bbb8-a723cca3c798" /><br>
+Tekemäni muutokset näkyvät kuvassa (gitanible-kansio ilmestynyt repoon).
+
+Tarkistetaan vielä muutokset lokeista.
+
+````bash
+git log --oneline
+git log --stat
+````
+
+<img width="990" height="99" alt="image" src="https://github.com/user-attachments/assets/ec1bc2ad-8b5d-474e-9cd9-4913af58e428" /><br>
+<img width="741" height="706" alt="image" src="https://github.com/user-attachments/assets/8bcc4abc-4d17-473b-aa12-f8f51d4a5173" />
+
+Ansible‑projektihakemisto lisättiin Git‑versionhallintaan ja tallennettiin omalla commitilla. Tämän jälkeen Ansible‑roolin tehtävää muutettiin, minkä jälkeen playbook ajettiin onnistuneesti ansible-playbook‑komennolla. Muutos tallennettiin versionhallintaan ja puskettiin GitHub‑palveluun.
 
 
 ### f) Hae pari projektiin Moodlen keskustelusta. (Tästä alakohdasta f ei tarvitse tehdä vaiheittaista teknistä raporttia, riittää kun toteat, että pari on hankittu.)
+
+🤝 Pari hankittu :)
 
 ### g) Vapaaehtoinen: Se toinen järjestelmä: kokeile Gittiä eri käyttöjärjestelmällä kuin sillä, millä teit muut harjoitukset. Selitä niin, että kyseistä järjestelmää osaamatonkin onnistuu. Mahdollisuuksia on runsaasti: Debian, Fedora, Windows, OSX...
 
@@ -302,8 +324,12 @@ Edelleen tuli sama error: <img width="968" height="215" alt="image" src="https:/
 
 **git. s.a.** Git-add documentation. Luettavissa: https://git-scm.com/docs/git-add. Luettu: 26.4.2026. 
 
+**git. s.a.** Git-commit documentation. Luettavissa: https://git-scm.com/docs/git-commit. Luettu: 26.4.2026. 
 
+**git. s.a.** Git-pull documentation. Luettavissa: https://git-scm.com/docs/git-pull. Luettu: 26.4.2026. 
+
+**git. s.a.** Git-push documentation. Luettavissa: https://git-scm.com/docs/git-push. Luettu: 26.4.2026. 
 
 **Karvinen, T. 2026.** Palvelinten hallinta. Luettavissa: https://terokarvinen.com/palvelinten-hallinta/. Luettu: 26.4.2026.
 
-
+Tehtävässä on hyödynnetty Microsoft Copilotia eri tarkistuksia varten sekä ongelmanratkaisussa.
