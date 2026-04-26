@@ -28,10 +28,55 @@ Tämän jälkeen tarkistin vielä lopputuloksen:
 
 <img width="1121" height="526" alt="image" src="https://github.com/user-attachments/assets/743defd7-001c-4a39-8a92-6a2bae6b1518" />
 
-
-
-
 ### b) Dolly. Kloonaa edellisessä kohdassa tehty uusi varasto itsellesi, tee muutoksia omalla koneella, puske ne palvelimelle, ja näytä, että ne ilmestyvät weppiliittymään.
+
+**Varaston kloonaus omalle koneelle ja tarkistus, että kansio tuli luoduksi**
+
+````bash
+git clone https://github.com/Taskuraketit/sunshine-of-your-love
+ls -l
+````
+
+<img width="905" height="461" alt="image" src="https://github.com/user-attachments/assets/48c44eb3-a152-43e4-918c-266101ac4bc0" /><br>
+Siirryin kansioon ja tein README.md-tiedostoon muutoksia paikallisesti.
+
+<img width="654" height="129" alt="image" src="https://github.com/user-attachments/assets/c3b48528-b89b-4795-8b5a-1108cf4a0e6b" /><br>
+<img width="1058" height="127" alt="image" src="https://github.com/user-attachments/assets/5a85d9bd-85c8-4f1c-8388-3e61deec7fb1" />
+
+**Muutosten tarkistus**
+
+````bash
+git status
+````
+
+<img width="720" height="213" alt="image" src="https://github.com/user-attachments/assets/a3a22b95-23b2-476a-9dd0-e385b2dd5ee2" /><br>
+Lisätään tehdyt muutokset versionhallintaan
+
+````bash
+git add .
+````
+
+**Tehdään commit**
+
+<img width="1067" height="98" alt="image" src="https://github.com/user-attachments/assets/5cc38c70-13c1-49c0-b98d-f4badce515ff" /><br>
+**Pusketaan muutokset palvelimelle**
+
+````bash
+git pull   # ei välttämätön tässä tapauksessa
+git push
+````
+
+Sain seuraavanlaisen virheilmoituksen:
+
+<img width="956" height="152" alt="image" src="https://github.com/user-attachments/assets/e21d7560-7eee-4f6e-862b-80eb089206af" /><br>
+Microsoft Copilot antoi virheilmoitukselle seuraavanlaisen analyysin:
+
+> Virhe johtuu siitä, että GitHub ei enää hyväksy käyttäjätunnus–salasana‑tunnistautumista Git‑komennoissa (kuten git push).
+> Vaikka salasana olisi ollut oikein, GitHub hylkää sen automaattisesti turvallisuussyistä.
+> Oikea tapa tunnistautua on käyttää salasanan sijasta GitHubin Personal Access Tokenia tai SSH‑avaimia.
+
+
+
 
 ### c) Doh! Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset ‘git reset --hard’. Huomaa, että tässä toiminnossa ei ole peruutusnappia.
 
