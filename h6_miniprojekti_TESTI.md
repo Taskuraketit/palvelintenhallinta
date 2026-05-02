@@ -103,33 +103,25 @@ Tyhjää täynnä :)
 
 Tehdään nyt uusi testi, mutta hieman aiempaa loogisemmin sillä ajatuksella, että järjestys olisi sopiva myös tulevassa demonstraatiossa.
 
-1) Repon kopiointi
+1. Repon kopiointi
 
-<img width="793" height="156" alt="image" src="https://github.com/user-attachments/assets/bc64f64a-2868-49a9-be20-398261cf4fb0" />
-
-
-2) Repon sisällön tarkastelu
+<img width="793" height="156" alt="image" src="https://github.com/user-attachments/assets/bc64f64a-2868-49a9-be20-398261cf4fb0" /><br>
+2. Repon sisällön tarkastelu
 
 <img width="745" height="379" alt="image" src="https://github.com/user-attachments/assets/75a4f69c-88d5-419f-813a-e869375174ea" /><br>
-<img width="537" height="588" alt="image" src="https://github.com/user-attachments/assets/d2698e2d-52d1-4a0e-a584-f4303886b1b0" />
+<img width="537" height="588" alt="image" src="https://github.com/user-attachments/assets/d2698e2d-52d1-4a0e-a584-f4303886b1b0" /><br>
+3. Todennetaan, ettei käyttäjiä ole luotu valmiiksi
 
+<img width="749" height="37" alt="image" src="https://github.com/user-attachments/assets/f417dbf6-a648-4421-a237-d4c2be1ecddc" /><br>
+4. Ajetaan playbook
 
-3) Todennetaan, ettei käyttäjiä ole luotu valmiiksi
-
-<img width="749" height="37" alt="image" src="https://github.com/user-attachments/assets/f417dbf6-a648-4421-a237-d4c2be1ecddc" />
-
-
-4) Ajetaan playbook
-
-<img width="1233" height="379" alt="image" src="https://github.com/user-attachments/assets/87cd3525-107c-4c8c-bb06-c8adced64c02" />
-
-5) Todennetaan idempotenssi ajamalla playbook.yml uudelleen
+<img width="1233" height="379" alt="image" src="https://github.com/user-attachments/assets/87cd3525-107c-4c8c-bb06-c8adced64c02" /><br>
+5. Todennetaan idempotenssi ajamalla playbook.yml uudelleen
 
 <img width="1251" height="461" alt="image" src="https://github.com/user-attachments/assets/58ff50b0-033e-40e2-98fa-a4f5544ac5d2" /><br>
 ➡️ Tällä kertaa **mikään ei muuttunut**
 
-6) Todennetaan vielä käyttäjien sekä heidän SSH-avaimiensa olemassaolo
+6. Todennetaan vielä käyttäjien sekä heidän SSH-avaimiensa olemassaolo
 
-<img width="735" height="210" alt="image" src="https://github.com/user-attachments/assets/bfefbdc9-4cc4-46c9-9788-4275e45e5412" />
-
-...ja näin olemme todentaneet, että **Userforge TNS tekee sen mitä pitääkin: luo käyttäjät ja generoi näille SSH-avaimet**
+<img width="735" height="210" alt="image" src="https://github.com/user-attachments/assets/bfefbdc9-4cc4-46c9-9788-4275e45e5412" /><br>
+...ja näin olemme todentaneet, että **Userforge TNS tekee sen mitä pitääkin: luo käyttäjät ja generoi näille SSH-avaimet** :) 🥳
