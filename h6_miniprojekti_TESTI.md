@@ -125,4 +125,4 @@ Tehdään nyt uusi testi, mutta hieman aiempaa loogisemmin sillä ajatuksella, e
 6. Todennetaan vielä käyttäjien sekä heidän SSH-avaimiensa olemassaolo
 
 <img width="735" height="210" alt="image" src="https://github.com/user-attachments/assets/bfefbdc9-4cc4-46c9-9788-4275e45e5412" /><br>
-...ja näin olemme todentaneet, että **Userforge TNS tekee sen mitä pitääkin: luo käyttäjät ja generoi näille SSH-avaimet** :) 🥳
+...ja näin olemme todentaneet, että **Userforge TSN tekee sen mitä pitääkin: luo käyttäjät ja generoi näille SSH-avaimet** :) 🥳
