@@ -5,6 +5,8 @@ Lähtökohtana, että virtuaalikoneelle oli asennettu
 - tabulaattoritäydennys
 - leikepöytäkopiointi toimimaan isäntä- ja virtuaalikoneen välillä
 
+## Ensimmäinen vaihe: tekeekö ohjelma sen mitä pitää eli luo käyttäjät sekä generoi näille ssh-avaimet?
+
 ````bash
 sudo apt-get update && sudo apt-get install -y ansible git tree micro timeshift curl glances htop bash-completion unattended-upgrades
 ````
@@ -40,7 +42,7 @@ Todennetaan vielä **idempotenssi**
 <img width="1242" height="470" alt="image" src="https://github.com/user-attachments/assets/dd1461fa-4d10-481a-8c6c-3023a496fc29" /><br>
 Jälkimmäisellä ajokerralla yhteenvedossa näkyy **ok=2** ja **changes=0** eli molemmat tehtävät (käyttäjien luonti sekä SSH-avainten luonti) saatiin suoritettua, mutta **mitään ei muuttunut**.
 
-**Muita tarpeellisia testejä**
+## Toinen vaihe: muita tarpeellisia testejä
 
 1) Käyttäjien olemassaolon todentaminen
 
@@ -68,3 +70,66 @@ sudo ls -l /home/matti/.ssh
 ````
 
 <img width="642" height="98" alt="image" src="https://github.com/user-attachments/assets/d2abeab1-7761-4d80-8e5f-940516d67b69" />
+
+## Kolmas vaihe: aiemmin tehtyjen asioiden peruminen (ei sinänsä välttämätöntä, mutta tulee testattua tämäkin)
+
+Käyttäjien poistaminen käsin
+
+````bash
+sudo userdel -r matti
+sudo userdel -r liisa
+sudo userdel -r maija
+sudo userdel -r eero
+````
+
+<img width="601" height="173" alt="image" src="https://github.com/user-attachments/assets/f7329c5c-b272-443a-bf22-0f2286be2971" /><br>
+Kotihakemistoon siityminen ja projektikansion poisto
+
+````bash
+cd ~4rm -rf h6-Miniprojekti/
+````
+
+Todennetaan, ettei käyttäjiä sekä heidän aiemmin luotuja kotihakemistoja löydy
+
+````bash
+getent passwd matti liisa maija eero
+ls /home
+````
+
+<img width="572" height="114" alt="image" src="https://github.com/user-attachments/assets/70269f2e-86a0-40c9-ad68-eb2c1bd7b436" /><br>
+Tyhjää täynnä :)
+
+## Neljäs vaihe: paranneltu testaus
+
+Tehdään nyt uusi testi, mutta hieman aiempaa loogisemmin sillä ajatuksella, että järjestys olisi sopiva myös tulevassa demonstraatiossa.
+
+1) Repon kopiointi
+
+<img width="793" height="156" alt="image" src="https://github.com/user-attachments/assets/bc64f64a-2868-49a9-be20-398261cf4fb0" />
+
+
+2) Repon sisällön tarkastelu
+
+<img width="745" height="379" alt="image" src="https://github.com/user-attachments/assets/75a4f69c-88d5-419f-813a-e869375174ea" /><br>
+<img width="537" height="588" alt="image" src="https://github.com/user-attachments/assets/d2698e2d-52d1-4a0e-a584-f4303886b1b0" />
+
+
+3) Todennetaan, ettei käyttäjiä ole luotu valmiiksi
+
+<img width="749" height="37" alt="image" src="https://github.com/user-attachments/assets/f417dbf6-a648-4421-a237-d4c2be1ecddc" />
+
+
+4) Ajetaan playbook
+
+<img width="1233" height="379" alt="image" src="https://github.com/user-attachments/assets/87cd3525-107c-4c8c-bb06-c8adced64c02" />
+
+5) Todennetaan idempotenssi ajamalla playbook.yml uudelleen
+
+<img width="1251" height="461" alt="image" src="https://github.com/user-attachments/assets/58ff50b0-033e-40e2-98fa-a4f5544ac5d2" /><br>
+➡️ Tällä kertaa **mikään ei muuttunut**
+
+6) Todennetaan vielä käyttäjien sekä heidän SSH-avaimiensa olemassaolo
+
+<img width="735" height="210" alt="image" src="https://github.com/user-attachments/assets/bfefbdc9-4cc4-46c9-9788-4275e45e5412" />
+
+...ja näin olemme todentaneet, että **Userforge TNS tekee sen mitä pitääkin: luo käyttäjät ja generoi näille SSH-avaimet**
