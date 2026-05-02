@@ -2,6 +2,7 @@
 
 Lähtökohtana, että virtuaalikoneelle oli asennettu 
 - tarvittavat ohjelmat (ja vähän ekstraa)
+- tabulaattoritäydennys
 - leikepöytäkopiointi toimimaan isäntä- ja virtuaalikoneen välillä
 
 ````bash
