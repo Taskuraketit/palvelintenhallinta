@@ -86,7 +86,8 @@ sudo userdel -r eero
 Kotihakemistoon siityminen ja projektikansion poisto
 
 ````bash
-cd ~4rm -rf h6-Miniprojekti/
+cd ~
+rm -rf h6-Miniprojekti/
 ````
 
 Todennetaan, ettei käyttäjiä sekä heidän aiemmin luotuja kotihakemistoja löydy
