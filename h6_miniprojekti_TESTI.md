@@ -30,36 +30,37 @@ Virheilmoitus johtuu Microsoft Copilotin mukaan siitä, että
 - sudo vaatii salasanan, mutta Ansiblelle ei ole annettu sitä
 - Tämän seurauksena Ansible jää odottamaan ja kaatuu
 
-Testataan seuraavaksi niin, että ajetaan komento sudona eli ´ansible-playbook playbook.yml -K´
+Testataan seuraavaksi niin, että ajetaan komento sudona eli **ansible-playbook playbook.yml -K**
 
 <img width="1047" height="424" alt="image" src="https://github.com/user-attachments/assets/32972bb5-06d8-4013-a50d-9c361f78b7b9" /><br>
-Kuvasta nähdään, että nyt ajo onnistui (ok=2, changed=1).
+Kuvasta nähdään, että nyt **ajo onnistui** (ok=2, changed=1).
 
-Todennetaan vielä idempotenssi
+Todennetaan vielä **idempotenssi**
 <img width="1242" height="470" alt="image" src="https://github.com/user-attachments/assets/dd1461fa-4d10-481a-8c6c-3023a496fc29" /><br>
 Jälkimmäisellä ajokerralla yhteenvedossa näkyy **ok=2** ja **changes=0** eli molemmat tehtävät (käyttäjien luonti sekä SSH-avainten luonti) saatiin suoritettua, mutta **mitään ei muuttunut**.
 
 **Muita tarpeellisia testejä**
 
-Käyttäjien olemassaolon todentaminen
+1) Käyttäjien olemassaolon todentaminen
 
 ````bash
 getent passwd matti liisa maija eero
 ````
 
 <img width="738" height="96" alt="image" src="https://github.com/user-attachments/assets/5b16601d-4246-4134-b0d7-4b3d641ca5cd" /><br>
-**Tämä kannattaa tehdä repon kopioimisen jälkeen ennen playbookin ajoa, jotta todennetaan etteivät käyttäjät ole olemassa jo valmiiksi!**
+⚠️ **Tämä kannattaa tehdä repon kopioimisen jälkeen _ennen playbookin ajoa_, <br>jotta todennetaan etteivät käyttäjät ole olemassa jo valmiiksi!** ⚠️
 
 Ajon jälkeen ja idempotenssin toteamisen jälkeen
 
-Kothakemistojen olemassaolon todentaminen
+2) Kotihakemistojen olemassaolon todentaminen
 
 ````bash
 ls -ld /home/matti /home/liisa /home/maija /home/eero
 ````
 
 <img width="905" height="100" alt="image" src="https://github.com/user-attachments/assets/0c94dcd2-9ca4-4b1a-ac63-2b1f72bcdc3b" /><br>
-SSH-avaimen olemassaolon todentaminen (yhdellä uudella käyttäjällä)
+
+3) SSH-avaimen olemassaolon todentaminen (yhdellä uudella käyttäjällä)
 
 ````bash
 sudo ls -l /home/matti/.ssh
